@@ -1,0 +1,248 @@
+<resources>
+    <string name="app_name" translatable="false">Super POS</string>
+
+    <string name="text_french" translatable="false">French</string>
+    <string name="text_english" translatable="false">English</string>
+    <string name="text_bangla" translatable="false">বাংলা</string>
+    <string name="text_spanish" translatable="false">Spanish</string>
+    <string name="text_hindi" translatable="false"> हिंदी </string>
+
+
+    <!--Replace your adMob application ID here -->
+    <string name="admob_application_id" translatable="false">ca-app-pub-5657501787263234~9247968350</string>
+
+    <!--Replace your adMob Banner Ads ID here -->
+    <string name="admob_banner_ads_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+
+    <!--Replace your admob Interstitial Ads ID here -->
+
+
+    <string name="action_settings">Pengaturan</string>
+    <string name="suppliers">Supplier</string>
+    <string name="customers">Pelanggan</string>
+    <string name="pos">POS</string>
+    <string name="expense">Pengeluaran</string>
+    <string name="report">Laporan</string>
+    <string name="all_orders">Pesanan</string>
+    <string name="all_sales">Penjualan</string>
+
+    <string name="daily">Harian</string>
+    <string name="monthly">Bulanan</string>
+    <string name="yearly">Tahunan</string>
+    <string name="customer_name">Nama Pelanggan</string>
+    <string name="customer_cell">Nomor HP</string>
+    <string name="customer_email">Email</string>
+    <string name="customer_address">Alamat</string>
+    <string name="add_customer">Tambah Pelanggan</string>
+    <string name="enter_customer_name">Masukkan nama pelanggan</string>
+    <string name="enter_customer_cell">Masukkan HP pelanggan</string>
+    <string name="enter_customer_address">Masukkan alamat pelanggan</string>
+    <string name="customer_successfully_added">Pelanggan berhasil ditambahkan</string>
+
+    <string name="all_customer">Daftar Pelanggan</string>
+    <string name="all_suppliers">Daftar Supplier</string>
+
+    <string name="add_suppliers">Tambah Supplier</string>
+    <string name="enter_suppliers_name">Enter Suppliers Name</string>
+    <string name="enter_suppliers_contact_person_name">Enter Suppliers Contact Person Name</string>
+    <string name="enter_suppliers_cell">Enter Suppliers Cell</string>
+    <string name="enter_valid_email">Enter Valid Email</string>
+    <string name="enter_suppliers_address">Enter Suppliers Address</string>
+    <string name="suppliers_successfully_added">Suppliers Successfully Added</string>
+    <string name="failed">Failed</string>
+
+    <string name="product_name_cannot_be_empty">Product name can\'t be empty!</string>
+    <string name="product_code_cannot_be_empty">Product code can\'t be empty!</string>
+    <string name="product_category_cannot_be_empty">Product category can\'t be empty!</string>
+    <string name="product_sell_price_cannot_be_empty">Product sell price can\'t be empty!</string>
+    <string name="product_weight_cannot_be_empty">Product weight can\'t be empty!</string>
+    <string name="product_successfully_added">Product Successfully Added</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="product_buy_price_cannot_be_empty">Product buy price can\'t be empty!</string>
+
+
+    <string name="add_product">Tambah Produk</string>
+    <string name="product_details">Detail Produk</string>
+    <string name="product_code">Kode Produk</string>
+    <string name="product_description">Nama Produk</string>
+    <string name="unit_product_sell_price">Harga Jual Produk</string>
+    <string name="product_sell_price">Harga Jual Produke</string>
+    <string name="product_weight">Berat Produk</string>
+    <string name="select_product_weight_unit">Satuan Produk</string>
+    <string name="product_weight_unit">Berat Produk</string>
+    <string name="select_supplier">Pilih Supplier</string>
+    <string name="product_supplier">Produk Supplier</string>
+    <string name="choose_product_image">Pilih foto produk</string>
+
+
+    <string name="year_2020">Year 2020</string>
+    <string name="total_sales">Total Penjualan : </string>
+    <string name="search_here">Cari. . . .</string>
+    <string name="no_order_found">No Order Found</string>
+    <string name="no_product_found">No Product Found</string>
+    <string name="submit_order">Submit</string>
+    <string name="all_sales_report">Laporan penjualan</string>
+    <string name="all_expense_report">Laporan Pengeluaran</string>
+    <string name="monthly_sales_graph">Grafik Penjualan Bulanan</string>
+    <string name="monthly_expense_graph">Grafik Pengeluaran Bulanan</string>
+    <string name="no_data_found">Data tidak ditemukan</string>
+
+    <string name="shop_information">Informasi Toko</string>
+    <string name="shop_name">Nama toko</string>
+    <string name="shop_contact_number">No.Telp Toko</string>
+    <string name="shop_email">Email Toko</string>
+    <string name="shop_address">Alamat Toko</string>
+    <string name="edit">Edit</string>
+    <string name="update_information">Update Information</string>
+    <string name="product_category">Kategori Produk</string>
+    <string name="cancel">Batal</string>
+    <string name="payment">Pembayaran</string>
+    <string name="submit">SUBMIT</string>
+    <string name="product_name">Nama Produk</string>
+    <string name="weight">Berat:</string>
+    <string name="price">Harga</string>
+
+    <string name="supplier_name">Nama  Supplier</string>
+    <string name="supplier_contact_person">Kontak Person</string>
+
+    <string name="supplier_cell">No.HP Supplier</string>
+
+    <string name="supplier_email">Email Supplier </string>
+
+    <string name="supplier_address">Alamat Supplier</string>
+
+    <string name="add_supplier">Tambah Supplier</string>
+    <string name="monthly_expense_in_graph">Grafik Pengeluaran Bulanan</string>
+    <string name="year">Year</string>
+    <string name="monthly_expense_report">Laporan Pengeluaran Bulanan</string>
+    <string name="total_expense">Total Pengeluaran: </string>
+    <string name="monthly_sales_report">Laporan Penjualan Bulanan</string>
+    <string name="all_expense">Daftar Pengeluaran</string>
+    <string name="yes">Yes</string>
+    <string name="all_product">Semua Produk</string>
+    <string name="product_cart">Keranjang</string>
+    <string name="no_product_in_cart">No Product in Cart</string>
+    <string name="select_payment_method">SELECT PAYMENT METHOD</string>
+    <string name="select_order_type">SELECT ORDER TYPE</string>
+    <string name="select_customer">Pilih Pelanggan</string>
+    <string name="order_history">Order History</string>
+    <string name="order_details">Order Details</string>
+    <string name="total_price">Total Harga: </string>
+    <string name="add_expense">Tambah Pengeluaran</string>
+    <string name="product_removed_from_cart">Product removed from cart</string>
+    <string name="want_to_delete_customer">Want to Delete Customer ?</string>
+    <string name="customer_deleted">Customer Deleted</string>
+    <string name="note">Note: </string>
+    <string name="want_to_delete_expense">Want to Delete Expense ?</string>
+    <string name="expense_deleted">Expense Deleted</string>
+    <string name="payment_method">Payment Method:</string>
+    <string name="want_to_delete_supplier">Want to Delete Supplier ?</string>
+    <string name="supplier_deleted">Supplier Deleted</string>
+    <string name="quantity">Quantity:</string>
+    <string name="sell_price">Harga Jual:</string>
+    <string name="want_to_delete_product">Want to Delete Product ?</string>
+    <string name="product_deleted">Product Deleted</string>
+    <string name="product_added_to_cart">Product added to cart</string>
+    <string name="product_already_added_to_cart">Product Already Added to Cart</string>
+    <string name="product_added_to_cart_failed_try_again">Product added to cart failed! Try again</string>
+    <string name="press_once_again_to_exit">Press once again to exit!</string>
+    <string name="order_deleted">Order Deleted</string>
+    <string name="want_to_delete_order">Want to Delete Order ?</string>
+    <string name="type_something_to_search">Type something to search</string>
+    <string name="expense_name_cannot_be_empty">Expense name can\'t be empty</string>
+    <string name="expense_amount_cannot_be_empty">Expense amount can\'t be empty</string>
+    <string name="expense_successfully_added">Expense Successfully Added</string>
+
+
+    <string name="qr_barcode_scanner">QR or Barcode Scanner</string>
+    <string name="camera_permission">Camera Permission Required</string>
+    <string name="error">Error</string>
+    <string name="order_receipt">Order Receipt</string>
+    <string name="print">Print</string>
+    <string name="share">Share</string>
+    <string name="open_pdf">Open PDF</string>
+    <string name="open_with_external_pdf_reader">Open with external pdf reader</string>
+    <string name="generate_pdf_receipt">PDF Receipt</string>
+    <string name="edit_customer">Edit Customer</string>
+    <string name="edit_suppliers">Edit Suppliers</string>
+    <string name="expense_name">Nama Pengeluaran</string>
+    <string name="expense_note_if_any">Catatan Pengeluaran (Jika ada)</string>
+    <string name="expense_note">Catatan Pengeluaran</string>
+    <string name="expense_amount">Jumlah Pengeluaran</string>
+    <string name="expense_date">Tanggal Pengeluaran</string>
+    <string name="expense_time">Jam Pengeluaran</string>
+    <string name="edit_expense">Ubah Pengeluaran</string>
+    <string name="update_successfully">Update Successfully</string>
+    <string name="categories">Kategori</string>
+    <string name="category_name">Nama Kategori</string>
+    <string name="payment_method_deleted">Payment Method Deleted</string>
+    <string name="want_to_delete">Want to delete ?</string>
+    <string name="all_payment_method">Daftar Metode Pembayaran</string>
+    <string name="payment_method_name">Payment Method Name</string>
+    <string name="add_payment_method">Add Payment Method</string>
+    <string name="enter_payment_method_name">Enter Payment Method Name</string>
+    <string name="successfully_added">Berhasil ditambahkan</string>
+    <string name="update_payment_method">Update Payment Method</string>
+    <string name="successfully_updated">Successfully Updated</string>
+    <string name="payment_methods">Metode Pembayaran</string>
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="please_enter_password">Masukkan password</string>
+    <string name="logout">Logout</string>
+    <string name="you_dont_have_permission_to_access_this_page">Anda tidak punya hak akses</string>
+    <string name="about_us">About US</string>
+    <string name="want_to_logout_from_app">Yakin Logout ?</string>
+    <string name="delete">Hapus</string>
+    <string name="tax">PPN</string>
+    <string name="total_tax">Total PPN</string>
+    <string name="sub_total">Sub Total:</string>
+    <string name="discount">Diskon:</string>
+    <string name="discount_cant_be_greater_than_total_price">Discount can\'t be greater than total price</string>
+    <string name="net_sales">Penjualan Bersih</string>
+    <string name="total_discount">Total Diskon</string>
+    <string name="table_number">Table Number</string>
+    <string name="order_success">Order Success</string>
+    <string name="order_successfully_done">Order Successfully Done</string>
+    <string name="email">Email</string>
+    <string name="please_wait">Please wait. . .</string>
+    <string name="no_network_connection">No network connection</string>
+    <string name="products">Produk</string>
+    <string name="stock">Stok</string>
+    <string name="stock_not_available_please_update_stock">Stock not available. Please update stock</string>
+    <string name="low_stock">Low Stock</string>
+    <string name="not_available">Not Available</string>
+    <string name="in_stock">Tersedia</string>
+    <string name="product_stock">Stok Produk</string>
+    <string name="please_input_product_stcok">Please input product stock</string>
+    <string name="invalid_email_or_password">Invalid email or password!</string>
+    <string name="view_all_orders">View All Orders</string>
+    <string name="order_note">Order Note</string>
+    <string name="weekly">Weekly</string>
+    <string name="all">All</string>
+    <string name="shop_closed_now">Shop Closed Now!</string>
+    <string name="reset">RESET</string>
+    <string name="add_to_cart">Keranjang</string>
+
+    <string name="connect_fail">Printer connection error</string>
+    <string name="connect_lost">Disconnected</string>
+    <string name="not_connected">Connection is not established</string>
+    <string name="title_paired_devices">Paired devices</string>
+    <string name="title_other_devices">Other devices</string>
+    <string name="button_scan">Scan devices</string>
+    <string name="none_paired">No device found</string>
+    <string name="scanning">Searching&#8230;</string>
+    <string name="select_device">Select device</string>
+    <string name="none_found">No device found</string>
+    <string name="connected">Connect to</string>
+    <string name="bluetooth_not_available">Bluetooth not available</string>
+    <string name="turnon_bluetooth">Turn on Bluetooth</string>
+    <string name="pic_load_error">Error in loading picture</string>
+    <string name="print_succ">Print done successfully</string>
+    <string name="print_error">Error in printing</string>
+    <string name="add_category">Tambah Kategori</string>
+    <string name="already_exists">Already Exists</string>
+    <string name="update_category">Ubah Kategori</string>
+    <string name="hi">Hi</string>
+    <string name="product_buy_price">Harga Beli Produk</string>
+    <string name="buy_price">Harga beli</string>
+</resources>
