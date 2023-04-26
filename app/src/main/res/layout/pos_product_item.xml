@@ -82,7 +82,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:padding="2dp"
+
+                        android:paddingLeft="10dp"
                         android:text="@string/price"
                         android:textColor="@color/colorAccent"
                         android:textSize="18sp"
@@ -92,7 +93,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:padding="2dp"
+                        android:paddingLeft="10dp"
                         android:text="@string/stock"
                         app:fontFamily="@font/sailec_regular" />
 
