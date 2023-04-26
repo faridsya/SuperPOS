@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="?android:attr/selectableItemBackground"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,13 +31,14 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
+                    android:layout_height="150dp">
 
                     <ImageView
                         android:id="@+id/img_product"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="125dp"
+                        android:layout_height="125dp"
                         android:scaleType="fitXY"
+                        android:layout_centerInParent="true"
                         app:srcCompat="@drawable/image_placeholder" />
 
                     <RelativeLayout
@@ -48,10 +49,10 @@
                             android:id="@+id/txt_stock_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
                             android:background="@color/red"
                             android:paddingLeft="5dp"
                             android:paddingRight="3dp"
-                            android:layout_alignParentStart="true"
                             android:paddingBottom="2dp"
                             android:text="@string/low_stock"
                             android:textColor="@color/white"
@@ -76,12 +77,21 @@
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:fontFamily="@font/sailec_regular" />
-
+                    <TextView
+                        android:id="@+id/txt_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:padding="2dp"
+                        android:text="@string/price"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="18sp"
+                        app:fontFamily="@font/sailec_regular" />
                     <TextView
                         android:id="@+id/txt_stock"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="left"
                         android:padding="2dp"
                         android:text="@string/stock"
                         app:fontFamily="@font/sailec_regular" />
@@ -91,25 +101,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:visibility="gone"
                         android:padding="2dp"
                         android:text="@string/weight"
                         app:fontFamily="@font/sailec_regular" />
 
-                    <TextView
-                        android:id="@+id/txt_price"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="2dp"
-                        android:text="@string/price"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="18sp"
-                        app:fontFamily="@font/sailec_regular" />
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
+                        android:gravity="left"
+                        android:visibility="gone"
                         android:orientation="vertical">
 
                         <TextView

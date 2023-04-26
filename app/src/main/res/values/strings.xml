@@ -209,7 +209,7 @@
     <string name="products">Produk</string>
     <string name="stock">Stok</string>
     <string name="stock_not_available_please_update_stock">Stock not available. Please update stock</string>
-    <string name="low_stock">Low Stock</string>
+    <string name="low_stock">Hampir habis</string>
     <string name="not_available">Not Available</string>
     <string name="in_stock">Tersedia</string>
     <string name="product_stock">Stok Produk</string>

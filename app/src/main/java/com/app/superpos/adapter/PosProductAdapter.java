@@ -62,10 +62,6 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
     @Override
     public void onBindViewHolder(@NonNull final PosProductAdapter.MyViewHolder holder, int position) {
 
-
-
-
-
         String productId = productData.get(position).getProductId();
         String productName = productData.get(position).getProductName();
         String productWeight = productData.get(position).getProductWeight();
@@ -81,7 +77,7 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
 
         holder.txtProductName.setText(productName);
         holder.txtWeight.setText(productWeight + " " + weightUnit);
-        holder.txtPrice.setText(currency + productPrice);
+        holder.txtPrice.setText(currency  + " " + productPrice);
 
 
         double itemPrice=Double.parseDouble(productPrice);
