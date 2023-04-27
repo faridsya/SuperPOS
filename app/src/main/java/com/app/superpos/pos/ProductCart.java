@@ -32,6 +32,7 @@ import com.app.superpos.database.DatabaseAccess;
 import com.app.superpos.model.Customer;
 import com.app.superpos.networking.ApiClient;
 import com.app.superpos.networking.ApiInterface;
+import com.app.superpos.orders.OrderDetailsActivity;
 import com.app.superpos.orders.OrdersActivity;
 import com.app.superpos.utils.BaseActivity;
 import com.app.superpos.utils.Utils;
@@ -61,8 +62,8 @@ public class ProductCart extends BaseActivity {
     CartAdapter productCartAdapter;
     ImageView imgNoProduct;
     Button btnSubmitOrder;
-    TextView txtNoProduct, txtTotalPrice;
-    LinearLayout linearLayout;
+    TextView txtNoProduct, txtTotalPrice,txttotaltax,TxtTotalPricewithtax;
+    LinearLayout linearLayout,lnket;
     DatabaseAccess databaseAccess = DatabaseAccess.getInstance(ProductCart.this);
 
 
@@ -72,6 +73,7 @@ public class ProductCart extends BaseActivity {
     SharedPreferences sp;
     String servedBy,staffId,shopTax,currency,shopID,ownerId;
     DecimalFormat f;
+    List<HashMap<String, String>> lines;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,9 @@ public class ProductCart extends BaseActivity {
         txtNoProduct = findViewById(R.id.txt_no_product);
         linearLayout = findViewById(R.id.linear_layout);
         txtTotalPrice = findViewById(R.id.txt_total_price);
+        txttotaltax = findViewById(R.id.txt_total_tax);
+        TxtTotalPricewithtax = findViewById(R.id.txt_total_with_tax);
+        lnket = findViewById(R.id.linear_layout2);
 
         txtNoProduct.setVisibility(View.GONE);
 
@@ -132,11 +137,12 @@ public class ProductCart extends BaseActivity {
             recyclerView.setVisibility(View.GONE);
             linearLayout.setVisibility(View.GONE);
             txtTotalPrice.setVisibility(View.GONE);
+            lnket.setVisibility(View.GONE);
         } else {
 
 
             imgNoProduct.setVisibility(View.GONE);
-            productCartAdapter = new CartAdapter(ProductCart.this, cartProductList, txtTotalPrice, btnSubmitOrder, imgNoProduct, txtNoProduct);
+            productCartAdapter = new CartAdapter(ProductCart.this, cartProductList, txtTotalPrice,txttotaltax,TxtTotalPricewithtax, btnSubmitOrder, imgNoProduct, txtNoProduct,lnket);
 
             recyclerView.setAdapter(productCartAdapter);
 
@@ -164,7 +170,7 @@ public class ProductCart extends BaseActivity {
 
             databaseAccess.open();
             //get data from local database
-            final List<HashMap<String, String>> lines;
+            //final List<HashMap<String, String>> lines;
             lines = databaseAccess.getCartProduct();
 
             if (lines.isEmpty()) {
@@ -293,7 +299,7 @@ public class ProductCart extends BaseActivity {
 
                     databaseAccess.open();
                     databaseAccess.emptyCart();
-                    dialogSuccess();
+                    dialogSuccess(obj);
 
                 } else {
 
@@ -321,7 +327,7 @@ public class ProductCart extends BaseActivity {
 
 
 
-    public void dialogSuccess() {
+    public void dialogSuccess(final JSONObject obj) {
 
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(ProductCart.this);
@@ -331,6 +337,7 @@ public class ProductCart extends BaseActivity {
 
         ImageButton dialogBtnCloseDialog = dialogView.findViewById(R.id.btn_close_dialog);
         Button dialogBtnViewAllOrders = dialogView.findViewById(R.id.btn_view_all_orders);
+        Button dialogBtnPrint = dialogView.findViewById(R.id.btn_print);
 
         AlertDialog alertDialogSuccess = dialog.create();
 
@@ -352,6 +359,22 @@ public class ProductCart extends BaseActivity {
             Intent intent = new Intent(ProductCart.this, OrdersActivity.class);
             startActivity(intent);
             finish();
+
+        });
+        dialogBtnPrint.setOnClickListener(v -> {
+            Log.d("Json",obj.toString());
+            //alertDialogSuccess.dismiss();
+
+            Intent i = new Intent(ProductCart.this, OrderDetailsActivity.class);
+            i.putExtra(Constant.INVOICE_ID, obj.optString("invoice_id"));
+            i.putExtra(Constant.CUSTOMER_NAME, obj.optString("customer_name"));
+            i.putExtra(Constant.TAX, obj.optString("tax"));
+            i.putExtra(Constant.ORDER_PRICE, obj.optString("order_price"));
+            i.putExtra(Constant.DISCOUNT, obj.optString("discount"));
+            i.putExtra(Constant.ORDER_DATE, obj.optString("order_date"));
+            i.putExtra(Constant.ORDER_TIME,obj.optString("order_time"));
+            ProductCart.this.startActivity(i);
+            //finish();
 
         });
 
@@ -475,11 +498,11 @@ public class ProductCart extends BaseActivity {
         //get data from local database
         final List<HashMap<String, String>> paymentMethod;
         paymentMethod = databaseAccess.getPaymentMethod();
-
+        paymentMethodNames.add("CARD");
         for (int i = 0; i < paymentMethod.size(); i++) {
 
             // Get the ID of selected Country
-            paymentMethodNames.add(paymentMethod.get(i).get("payment_method_name"));
+           // paymentMethodNames.add(paymentMethod.get(i).get("payment_method_name"));
 
         }
 

@@ -20,7 +20,7 @@
     <string name="enter_customer_cell">Entrez la cellule client</string>
     <string name="enter_customer_address">Entrez l\'adresse du client</string>
     <string name="customer_successfully_added">Client ajouté avec succès</string>
-
+    <string name="total_price_with_tax">Grand Total </string>
     <string name="all_customer">Tous les clients</string>
     <string name="all_suppliers">Tous les fournisseurs</string>
 

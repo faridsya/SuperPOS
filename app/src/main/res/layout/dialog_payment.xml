@@ -105,6 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <TextView
@@ -151,7 +152,8 @@
                     android:fontFamily="@font/sailec_regular"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:text="CASH"
+                    android:text="CARD"
+                    android:visibility="gone"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/grey_60" />
 
@@ -160,6 +162,7 @@
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/selectableItemBackgroundBorderless"
+                    android:visibility="gone"
                     android:tint="@color/grey_60"
                     app:srcCompat="@drawable/ic_arrow_down"
                     tools:ignore="VectorDrawableCompat" />

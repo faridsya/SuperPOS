@@ -75,10 +75,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <com.balysv.materialripple.MaterialRippleLayout
-                    style="@style/RippleStyleWhite"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+
 
 
                     <Button
@@ -91,7 +88,18 @@
                         android:text="@string/view_all_orders"
                         android:textColor="#fff"
                         android:textStyle="bold" />
-                </com.balysv.materialripple.MaterialRippleLayout>
+                <Button
+                    android:id="@+id/btn_print"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/colorPrimary"
+                    android:fontFamily="@font/sailec_regular"
+                    android:text="@string/print"
+                    android:textColor="#fff"
+                    android:textStyle="bold" />
+
+
             </LinearLayout>
 
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,17 +35,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     MediaPlayer player;
     TextView txtNoProduct;
 
-    TextView txtTotalPrice;
+    TextView txtTotalPrice,txtTotalTax,txtTotalPricewithTax;
 
     public static Double totalPrice,allTax;
     Button btnSubmitOrder;
+    LinearLayout lnket;
     ImageView imgNoProduct;
 
     SharedPreferences sp;
     String currency;
     DecimalFormat f;
 
-    public CartAdapter(Context context, List<HashMap<String, String>> cartProduct, TextView txtTotalPrice, Button btnSubmitOrder, ImageView imgNoProduct, TextView txtNoProduct) {
+    public CartAdapter(Context context, List<HashMap<String, String>> cartProduct, TextView txtTotalPrice, TextView txtTotaltax, TextView txtTotalPricewithtax, Button btnSubmitOrder, ImageView imgNoProduct, TextView txtNoProduct,LinearLayout lnket) {
         this.context = context;
         this.cartProduct = cartProduct;
         player = MediaPlayer.create(context, R.raw.delete_sound);
@@ -52,6 +54,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         this.btnSubmitOrder = btnSubmitOrder;
         this.imgNoProduct = imgNoProduct;
         this.txtNoProduct = txtNoProduct;
+        this.txtTotalPricewithTax = txtTotalPricewithtax;
+        this.txtTotalTax = txtTotaltax;
+        this.lnket = lnket;
 
         sp = context.getSharedPreferences(Constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
@@ -104,8 +109,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
 
         double priceWithTax=totalPrice+allTax;
-        txtTotalPrice.setText(context.getString(R.string.total_price) + currency + f.format(totalPrice)+"\nTotal Tax: "+currency+f.format(allTax)+"\nPrice with Tax: "+currency+f.format(priceWithTax));
-
+        //txtTotalPrice.setText(context.getString(R.string.total_price) + currency + f.format(totalPrice)+"\nTotal Tax: "+currency+f.format(allTax)+"\nPrice with Tax: "+currency+f.format(priceWithTax));
+        txtTotalPrice.setText(  f.format(totalPrice));
+        txtTotalPricewithTax.setText(f.format(priceWithTax));
+        txtTotalTax.setText(f.format(allTax));
 
         if (productImage != null) {
             if (productImage.isEmpty()) {
@@ -162,9 +169,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
 
                     double priceWithTax=totalPrice+allTax;
-                    txtTotalPrice.setText(context.getString(R.string.total_price) + currency + f.format(totalPrice)+"\nTotal Tax: "+currency+f.format(allTax)+"\nPrice with Tax: "+currency+f.format(priceWithTax));
+                    //txtTotalPrice.setText(context.getString(R.string.total_price) + currency + f.format(totalPrice)+"\nTotal Tax: "+currency+f.format(allTax)+"\nPrice with Tax: "+currency+f.format(priceWithTax));
 
-
+                    txtTotalPrice.setText(  f.format(totalPrice));
+                    txtTotalPricewithTax.setText(f.format(priceWithTax));
+                    txtTotalTax.setText(f.format(allTax));
 
                 } else {
                     Toasty.error(context, context.getString(R.string.failed), Toast.LENGTH_SHORT).show();
@@ -176,6 +185,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 Log.d("itemCount", "" + itemCount);
                 if (itemCount <= 0) {
                     txtTotalPrice.setVisibility(View.GONE);
+                    lnket.setVisibility(View.GONE);
                     btnSubmitOrder.setVisibility(View.GONE);
 
                     imgNoProduct.setVisibility(View.VISIBLE);
@@ -223,7 +233,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
                     double priceWithTax=totalPrice+allTax;
                     txtTotalPrice.setText(context.getString(R.string.total_price) + currency + f.format(totalPrice)+"\nTotal Tax: "+currency+f.format(allTax)+"\nPrice with Tax: "+currency+f.format(priceWithTax));
-
+                    txtTotalPrice.setText(  f.format(totalPrice));
+                    txtTotalPricewithTax.setText(f.format(priceWithTax));
+                    txtTotalTax.setText(f.format(allTax));
                 }
             }
         });
@@ -259,9 +271,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
 
                     double priceWithTax=totalPrice+allTax;
-                    txtTotalPrice.setText(context.getString(R.string.total_price) + currency + f.format(totalPrice)+"\nTotal Tax: "+currency+f.format(allTax)+"\nPrice with Tax: "+currency+f.format(priceWithTax));
+                   // txtTotalPrice.setText(context.getString(R.string.total_price) + currency + f.format(totalPrice)+"\nTotal Tax: "+currency+f.format(allTax)+"\nPrice with Tax: "+currency+f.format(priceWithTax));
 
-
+                    txtTotalPrice.setText(  f.format(totalPrice));
+                    txtTotalPricewithTax.setText(f.format(priceWithTax));
+                    txtTotalTax.setText(f.format(allTax));
                 }
 
 

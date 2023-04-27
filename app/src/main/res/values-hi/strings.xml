@@ -21,7 +21,7 @@
     <string name="enter_customer_cell">ग्राहक सेल दर्ज करें</string>
     <string name="enter_customer_address">ग्राहक का पता दर्ज करें</string>
     <string name="customer_successfully_added">ग्राहक सफलतापूर्वक जोड़ा गया</string>
-
+    <string name="total_price_with_tax">Grand Total </string>
     <string name="all_customer">सभी ग्राहक</string>
     <string name="all_suppliers">सभी आपूर्तिकर्ता</string>
 

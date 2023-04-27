@@ -79,7 +79,7 @@
     <string name="total_sales">Total Penjualan : </string>
     <string name="search_here">Cari. . . .</string>
     <string name="no_order_found">No Order Found</string>
-    <string name="no_product_found">No Product Found</string>
+    <string name="no_product_found">Produk tidak ditemukan</string>
     <string name="submit_order">Submit</string>
     <string name="all_sales_report">Laporan penjualan</string>
     <string name="all_expense_report">Laporan Pengeluaran</string>
@@ -121,13 +121,14 @@
     <string name="yes">Yes</string>
     <string name="all_product">Semua Produk</string>
     <string name="product_cart">Keranjang</string>
-    <string name="no_product_in_cart">No Product in Cart</string>
+    <string name="no_product_in_cart">Keranjang masih kosong</string>
     <string name="select_payment_method">SELECT PAYMENT METHOD</string>
     <string name="select_order_type">SELECT ORDER TYPE</string>
     <string name="select_customer">Pilih Pelanggan</string>
     <string name="order_history">Order History</string>
     <string name="order_details">Order Details</string>
-    <string name="total_price">Total Harga: </string>
+    <string name="total_price">Total Harga </string>
+    <string name="total_price_with_tax">Grand Total </string>
     <string name="add_expense">Tambah Pengeluaran</string>
     <string name="product_removed_from_cart">Product removed from cart</string>
     <string name="want_to_delete_customer">Want to Delete Customer ?</string>

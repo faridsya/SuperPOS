@@ -21,7 +21,7 @@
     <string name="enter_customer_cell">Ingrese la celda del cliente</string>
     <string name="enter_customer_address">Ingrese la dirección del cliente</string>
     <string name="customer_successfully_added">Cliente agregado con éxito</string>
-
+    <string name="total_price_with_tax">Grand Total </string>
     <string name="all_customer">Toda cliente</string>
     <string name="all_suppliers">Todos los proveedores</string>
 

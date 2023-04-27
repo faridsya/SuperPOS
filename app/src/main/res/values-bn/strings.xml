@@ -23,7 +23,7 @@
     <string name="customer_successfully_added">কাস্টমার সফলভাবে যুক্ত হয়েছে </string>
     <string name="all_customer">সকল কাস্টমার </string>
     <string name="all_suppliers">সকল সাপ্লাইয়ারস </string>
-
+    <string name="total_price_with_tax">Grand Total </string>
     <string name="add_suppliers">সাপ্লাইয়ারস যুক্ত করুন </string>
     <string name="enter_suppliers_name">সাপ্লাইয়ারসের না লিখুন </string>
     <string name="enter_suppliers_contact_person_name">সাপ্লাইয়ারসের যোগাযোগ ব্যাক্তির নাম লিখুন </string>
