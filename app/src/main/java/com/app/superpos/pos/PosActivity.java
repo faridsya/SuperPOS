@@ -106,7 +106,8 @@ public class PosActivity extends BaseActivity {
         txtReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getProductsData("", shopID, ownerId);
+                etxtSearch.setText("");
+               // getProductsData("", shopID, ownerId);
             }
         });
 

@@ -1,11 +1,28 @@
 package com.app.superpos.pos;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.IsoDep;
+import android.nfc.tech.MifareClassic;
+import android.nfc.tech.MifareUltralight;
+import android.nfc.tech.Ndef;
+import android.nfc.tech.NfcA;
+import android.nfc.tech.NfcB;
+import android.nfc.tech.NfcF;
+import android.nfc.tech.NfcV;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -41,6 +58,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,16 +83,29 @@ public class ProductCart extends BaseActivity {
     TextView txtNoProduct, txtTotalPrice,txttotaltax,TxtTotalPricewithtax;
     LinearLayout linearLayout,lnket;
     DatabaseAccess databaseAccess = DatabaseAccess.getInstance(ProductCart.this);
-
-
+    double calculatedTotalCost=0.0;
+    double totalTax=0.0;
+    AlertDialog.Builder dialog;
+    View dialogView;
     List<String> customerNames, orderTypeNames, paymentMethodNames;
     List<Customer> customerData;
     ArrayAdapter<String> customerAdapter, orderTypeAdapter, paymentMethodAdapter;
     SharedPreferences sp;
     String servedBy,staffId,shopTax,currency,shopID,ownerId;
     DecimalFormat f;
+     AlertDialog alertDialogorder;
     List<HashMap<String, String>> lines;
-
+    private final String[][] techList = new String[][] {
+            new String[] {
+                    NfcA.class.getName(),
+                    NfcB.class.getName(),
+                    NfcF.class.getName(),
+                    NfcV.class.getName(),
+                    IsoDep.class.getName(),
+                    MifareClassic.class.getName(),
+                    MifareUltralight.class.getName(), Ndef.class.getName()
+            }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,7 +185,104 @@ public class ProductCart extends BaseActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("onResume", "1");
 
+        //mTextView.setText("onResume:");
+        // creating pending intent:
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+        // creating intent receiver for NFC events:
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(NfcAdapter.ACTION_TAG_DISCOVERED);
+        filter.addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
+        filter.addAction(NfcAdapter.ACTION_TECH_DISCOVERED);
+        // enabling foreground dispatch for getting intent from NFC event:
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, this.techList);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        Log.d("onPause", "1");
+
+        // disabling foreground dispatch:
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        nfcAdapter.disableForegroundDispatch(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d("onNewIntent", "1");
+
+        if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
+            Log.d("onNewIntent", "2");
+            if( alertDialogorder!=null) {
+                if ( !alertDialogorder.isShowing()) {
+                    Toasty.error(ProductCart.this, "Please submit first", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+            else {
+                Toasty.error(ProductCart.this, "Please submit first", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Parcelable[] messages1 = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+            if (messages1 != null) {
+                Log.d(TAG, "Found " + messages1.length + " NDEF messages");
+
+                NdefMessage[] ndefMessages = new NdefMessage[messages1.length];
+                for (int i = 0; i < messages1.length; i++) {
+                    ndefMessages[i] = (NdefMessage) messages1[i];
+                }
+                NdefRecord record = ndefMessages[0].getRecords()[0];
+
+                byte[] payload = record.getPayload();
+                int lng = payload[0] & 0063;
+                String textencoding = "UTF-8";
+                String text = null;
+                try {
+                    text = new String(payload, lng + 1, payload.length - lng - 1, textencoding);
+
+                    final TextView dialogOrderPaymentMethod = dialogView.findViewById(R.id.dialog_order_status);
+                    final TextView dialogOrderType = dialogView.findViewById(R.id.dialog_order_type);
+                    final TextView dialogCustomer = dialogView.findViewById(R.id.dialog_customer);
+
+                    final EditText dialogEtxtDiscount = dialogView.findViewById(R.id.etxt_dialog_discount);
+                    String orderType1 =  dialogOrderType.getText().toString().trim();
+                    String orderPaymentMethod = dialogOrderPaymentMethod.getText().toString().trim();
+                    String customerName = dialogCustomer.getText().toString().trim();
+                    String discount1 = dialogEtxtDiscount.getText().toString().trim();
+                    if (discount1.isEmpty()) {
+                        discount1 = "0.00";
+                    }
+
+
+
+                    String shopCurrency = currency;
+                    // String tax = shopTax;
+
+                    double getTax = totalTax;
+                    proceedOrder(orderType1, orderPaymentMethod, customerName, getTax, discount1, calculatedTotalCost);
+                    alertDialogorder.dismiss();
+
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+
+
+            } else {
+                Log.d(TAG, "Not EXTRA_NDEF_MESSAGES");
+            }
+
+
+        }
+    }
     public void proceedOrder(String type, String paymentMethod, String customerName, double tax, String discount, double price) {
 
         databaseAccess = DatabaseAccess.getInstance(ProductCart.this);
@@ -331,7 +459,7 @@ public class ProductCart extends BaseActivity {
 
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(ProductCart.this);
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_success, null);
+         dialogView = getLayoutInflater().inflate(R.layout.dialog_success, null);
         dialog.setView(dialogView);
         dialog.setCancelable(false);
 
@@ -388,7 +516,7 @@ public class ProductCart extends BaseActivity {
     public void dialog() {
 
         databaseAccess.open();
-        double totalTax = databaseAccess.getTotalTax();
+         totalTax = databaseAccess.getTotalTax();
 
 
         String shopCurrency = currency;
@@ -398,8 +526,8 @@ public class ProductCart extends BaseActivity {
 
 
 
-        AlertDialog.Builder dialog = new AlertDialog.Builder(ProductCart.this);
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_payment, null);
+         dialog = new AlertDialog.Builder(ProductCart.this);
+         dialogView = getLayoutInflater().inflate(R.layout.dialog_payment, null);
         dialog.setView(dialogView);
         dialog.setCancelable(false);
 
@@ -429,7 +557,7 @@ public class ProductCart extends BaseActivity {
 
 
         double discount = 0;
-        double calculatedTotalCost = totalCost + getTax - discount;
+         calculatedTotalCost = totalCost + getTax - discount;
         dialogTxtTotalCost.setText(shopCurrency + calculatedTotalCost);
 
 
@@ -446,7 +574,7 @@ public class ProductCart extends BaseActivity {
                 double discount = 0;
                 String getDiscount = s.toString();
                 if (!getDiscount.isEmpty() && !getDiscount.equals(".")) {
-                    double calculatedTotalCost = totalCost + getTax;
+                     calculatedTotalCost = totalCost + getTax;
                     discount = Double.parseDouble(getDiscount);
                     if (discount > calculatedTotalCost) {
                         dialogEtxtDiscount.setError(getString(R.string.discount_cant_be_greater_than_total_price));
@@ -462,7 +590,7 @@ public class ProductCart extends BaseActivity {
                     }
                 } else {
 
-                    double calculatedTotalCost = totalCost + getTax - discount;
+                     calculatedTotalCost = totalCost + getTax - discount;
                     dialogTxtTotalCost.setText(shopCurrency + calculatedTotalCost);
                 }
 
@@ -678,8 +806,8 @@ public class ProductCart extends BaseActivity {
         });
 
 
-        final AlertDialog alertDialog = dialog.create();
-        alertDialog.show();
+        alertDialogorder = dialog.create();
+        alertDialogorder.show();
 
 
         dialogBtnSubmit.setOnClickListener(v -> {
@@ -695,11 +823,11 @@ public class ProductCart extends BaseActivity {
             proceedOrder(orderType1, orderPaymentMethod, customerName, getTax, discount1, calculatedTotalCost);
 
 
-            alertDialog.dismiss();
+            alertDialogorder.dismiss();
         });
 
 
-        dialogBtnClose.setOnClickListener(v -> alertDialog.dismiss());
+        dialogBtnClose.setOnClickListener(v -> alertDialogorder.dismiss());
 
 
     }

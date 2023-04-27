@@ -42,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:visibility="invisible"
                 android:text="@string/submit"
                 android:textColor="@android:color/white" />
 
@@ -289,7 +290,16 @@
                     android:textSize="18sp" />
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="8dp"
+                android:paddingBottom="10dp"
+                android:gravity="left"
+                android:text="*Tempelkan kartu NFC untuk diproses"
+                android:textStyle="italic"
 
+                />
         </LinearLayout>
 
 
