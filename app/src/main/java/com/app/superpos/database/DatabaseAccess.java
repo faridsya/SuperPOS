@@ -192,11 +192,6 @@ public class DatabaseAccess {
         database.close();
     }
 
-
-
-
-
-
     //delete product from cart
     public boolean deleteProductFromCart(String id) {
 

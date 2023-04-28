@@ -238,6 +238,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -262,7 +263,10 @@
                     android:padding="15dp" />
 
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey_60" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -294,10 +298,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="8dp"
+                android:textSize="13sp"
                 android:paddingBottom="10dp"
                 android:gravity="left"
-                android:text="*Tempelkan kartu NFC untuk diproses"
-                android:textStyle="italic"
+                android:text="*Tempelkan kartu NFC untuk proses pembayaran"
+                android:textStyle="italic|bold"
 
                 />
         </LinearLayout>
