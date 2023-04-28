@@ -47,7 +47,7 @@ public class PosActivity extends BaseActivity {
     TextView txtNoProducts, txtReset;
     ProductCategoryAdapter categoryAdapter;
 
-    ImageView imgNoProduct, imgScanner, imgCart, imgBack;
+    ImageView imgNoProduct, imgScanner, imgCart, imgBack,imgempty;
     ;
     public static EditText etxtSearch;
     public static TextView txtCount;
@@ -75,6 +75,7 @@ public class PosActivity extends BaseActivity {
         txtReset = findViewById(R.id.txt_reset);
         imgBack = findViewById(R.id.img_back);
         imgCart = findViewById(R.id.img_cart);
+        imgempty = findViewById(R.id.img_empty);
         txtCount = findViewById(R.id.txt_count);
         databaseAccess = DatabaseAccess.getInstance(PosActivity.this);
 
@@ -167,6 +168,14 @@ public class PosActivity extends BaseActivity {
 
                 Intent intent = new Intent(PosActivity.this, ProductCart.class);
                 startActivity(intent);
+            }
+        });
+        imgempty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseAccess.open();
+                databaseAccess.emptyCart();
+                txtCount.setVisibility(View.INVISIBLE);
             }
         });
 

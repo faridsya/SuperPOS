@@ -146,7 +146,7 @@
     <string name="product_added_to_cart">Product added to cart</string>
     <string name="product_already_added_to_cart">Product Already Added to Cart</string>
     <string name="product_added_to_cart_failed_try_again">Product added to cart failed! Try again</string>
-    <string name="press_once_again_to_exit">Press once again to exit!</string>
+    <string name="press_once_again_to_exit">Tekan sekali lagi untuk keluar!</string>
     <string name="order_deleted">Order Deleted</string>
     <string name="want_to_delete_order">Want to Delete Order ?</string>
     <string name="type_something_to_search">Type something to search</string>
@@ -209,14 +209,14 @@
     <string name="no_network_connection">No network connection</string>
     <string name="products">Produk</string>
     <string name="stock">Stok</string>
-    <string name="stock_not_available_please_update_stock">Stock not available. Please update stock</string>
+    <string name="stock_not_available_please_update_stock">Stok tidak tersedia. Perbarui stok dahulu</string>
     <string name="low_stock">Hampir habis</string>
-    <string name="not_available">Not Available</string>
+    <string name="not_available">Tidak tersedia</string>
     <string name="in_stock">Tersedia</string>
     <string name="product_stock">Stok Produk</string>
     <string name="please_input_product_stcok">Please input product stock</string>
-    <string name="invalid_email_or_password">Invalid email or password!</string>
-    <string name="view_all_orders">View All Orders</string>
+    <string name="invalid_email_or_password">Invalid email atau password!</string>
+    <string name="view_all_orders">Lihat semua Penjualan</string>
     <string name="order_note">Order Note</string>
     <string name="weekly">Weekly</string>
     <string name="all">All</string>
