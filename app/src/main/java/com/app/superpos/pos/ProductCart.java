@@ -42,6 +42,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.app.superpos.Constant;
 import com.app.superpos.R;
 import com.app.superpos.adapter.CartAdapter;
@@ -541,7 +542,7 @@ public class ProductCart extends BaseActivity {
         final TextView dialogTxtLevelTax = dialogView.findViewById(R.id.dialog_level_tax);
         final TextView dialogTxtTotalCost = dialogView.findViewById(R.id.dialog_txt_total_cost);
         final EditText dialogEtxtDiscount = dialogView.findViewById(R.id.etxt_dialog_discount);
-
+        final LottieAnimationView animationView = dialogView.findViewById(R.id.animationView);;
 
         final ImageButton dialogImgCustomer = dialogView.findViewById(R.id.img_select_customer);
         final ImageButton dialogImgOrderPaymentMethod = dialogView.findViewById(R.id.img_order_payment_method);
@@ -829,7 +830,15 @@ public class ProductCart extends BaseActivity {
 
         dialogBtnClose.setOnClickListener(v -> alertDialogorder.dismiss());
 
+        animationView.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                animationView.playAnimation();
+
+            }
+        });
     }
 
 

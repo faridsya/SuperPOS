@@ -28,9 +28,9 @@
                 tools:ignore="VectorDrawableCompat" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+
                 android:gravity="center"
                 android:text="@string/payment"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
@@ -45,7 +45,15 @@
                 android:visibility="invisible"
                 android:text="@string/submit"
                 android:textColor="@android:color/white" />
-
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:paddingRight="20dp"
+                android:layout_gravity="center"
+                app:lottie_rawRes="@raw/tapcard"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"/>
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
