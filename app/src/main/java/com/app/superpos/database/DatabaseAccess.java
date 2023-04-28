@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.app.superpos.Constant;
 
@@ -157,9 +158,10 @@ public class DatabaseAccess {
         if (result.getCount() == 1) {
             result.moveToFirst();
 
-            return result.getColumnIndex("product_qty");
+            return  Integer.parseInt(result.getString(result.getColumnIndex("product_qty")))   ;
 
         }
+
     return 0;
     }
 
@@ -243,6 +245,17 @@ public class DatabaseAccess {
         values.put("product_qty", qty);
 
         database.update("product_cart", values, "cart_id=?", new String[]{id});
+
+
+    }
+
+    public void updateQty(String id, String qty) {
+
+        ContentValues values = new ContentValues();
+
+        values.put("product_qty", qty);
+
+        database.update("product_cart", values, "product_id=?", new String[]{id});
 
 
     }

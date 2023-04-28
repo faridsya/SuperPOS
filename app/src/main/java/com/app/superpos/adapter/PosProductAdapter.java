@@ -144,8 +144,11 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
             @Override
             public void onClick(View v) {
 
+                databaseAccess.open();
+                int getQty=databaseAccess.getqty(productId);
 
-                if (getStock<=0)
+
+                if (getStock<=0 || getStock<=getQty )
                 {
 
                     Toasty.warning(context, R.string.stock_not_available_please_update_stock, Toast.LENGTH_SHORT).show();
@@ -176,8 +179,10 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
                         databaseAccess.open();
                         int jumlah=databaseAccess.getqty(productId);
                         jumlah++;
-                        databaseAccess.updateProductQty(productId, String.valueOf(jumlah));
+
+                        databaseAccess.updateQty(productId, String.valueOf(jumlah));
                         player.start();
+                        Toasty.success(context, R.string.product_added_to_cart, Toast.LENGTH_SHORT).show();
                         //Toasty.info(context, R.string.product_already_added_to_cart, Toast.LENGTH_SHORT).show();
 
                     } else {
