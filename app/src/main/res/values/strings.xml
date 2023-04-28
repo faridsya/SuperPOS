@@ -56,7 +56,7 @@
     <string name="product_category_cannot_be_empty">Product category can\'t be empty!</string>
     <string name="product_sell_price_cannot_be_empty">Product sell price can\'t be empty!</string>
     <string name="product_weight_cannot_be_empty">Product weight can\'t be empty!</string>
-    <string name="product_successfully_added">Product Successfully Added</string>
+    <string name="product_successfully_added">Produk berhasil ditambahkan</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="product_buy_price_cannot_be_empty">Product buy price can\'t be empty!</string>
 
@@ -64,9 +64,9 @@
     <string name="add_product">Tambah Produk</string>
     <string name="product_details">Detail Produk</string>
     <string name="product_code">Kode Produk</string>
-    <string name="product_description">Nama Produk</string>
+    <string name="product_description">Deskripsi Produk</string>
     <string name="unit_product_sell_price">Harga Jual Produk</string>
-    <string name="product_sell_price">Harga Jual Produke</string>
+    <string name="product_sell_price">Harga Jual Produk</string>
     <string name="product_weight">Berat Produk</string>
     <string name="select_product_weight_unit">Satuan Produk</string>
     <string name="product_weight_unit">Berat Produk</string>
@@ -143,13 +143,13 @@
     <string name="sell_price">Harga Jual:</string>
     <string name="want_to_delete_product">Want to Delete Product ?</string>
     <string name="product_deleted">Product Deleted</string>
-    <string name="product_added_to_cart">Product added to cart</string>
-    <string name="product_already_added_to_cart">Product Already Added to Cart</string>
+    <string name="product_added_to_cart">Produk ditambahkan ke keranjang</string>
+    <string name="product_already_added_to_cart">Produk sudah terdaftar di keranjang</string>
     <string name="product_added_to_cart_failed_try_again">Product added to cart failed! Try again</string>
     <string name="press_once_again_to_exit">Tekan sekali lagi untuk keluar!</string>
     <string name="order_deleted">Order Deleted</string>
     <string name="want_to_delete_order">Want to Delete Order ?</string>
-    <string name="type_something_to_search">Type something to search</string>
+    <string name="type_something_to_search">Ketik untuk pencarian</string>
     <string name="expense_name_cannot_be_empty">Expense name can\'t be empty</string>
     <string name="expense_amount_cannot_be_empty">Expense amount can\'t be empty</string>
     <string name="expense_successfully_added">Expense Successfully Added</string>

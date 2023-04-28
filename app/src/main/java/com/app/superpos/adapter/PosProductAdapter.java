@@ -173,8 +173,12 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
                         Toasty.success(context, R.string.product_added_to_cart, Toast.LENGTH_SHORT).show();
                         player.start();
                     } else if (check == 2) {
-
-                        Toasty.info(context, R.string.product_already_added_to_cart, Toast.LENGTH_SHORT).show();
+                        databaseAccess.open();
+                        int jumlah=databaseAccess.getqty(productId);
+                        jumlah++;
+                        databaseAccess.updateProductQty(productId, String.valueOf(jumlah));
+                        player.start();
+                        //Toasty.info(context, R.string.product_already_added_to_cart, Toast.LENGTH_SHORT).show();
 
                     } else {
 

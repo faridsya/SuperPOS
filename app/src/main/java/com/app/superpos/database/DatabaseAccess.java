@@ -150,6 +150,19 @@ public class DatabaseAccess {
 
     }
 
+    public int getqty(String productId) {
+
+
+        Cursor result = database.rawQuery("SELECT * FROM product_cart WHERE product_id='" + productId + "'", null);
+        if (result.getCount() == 1) {
+            result.moveToFirst();
+
+            return result.getColumnIndex("product_qty");
+
+        }
+    return 0;
+    }
+
 
     //get cart product
     public ArrayList<HashMap<String, String>> getCartProduct() {
