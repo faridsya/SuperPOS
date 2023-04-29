@@ -47,6 +47,7 @@ import com.app.superpos.Constant;
 import com.app.superpos.R;
 import com.app.superpos.adapter.CartAdapter;
 import com.app.superpos.database.DatabaseAccess;
+import com.app.superpos.global.Global;
 import com.app.superpos.model.Customer;
 import com.app.superpos.networking.ApiClient;
 import com.app.superpos.networking.ApiInterface;
@@ -429,6 +430,7 @@ public class ProductCart extends BaseActivity {
                     databaseAccess.open();
                     databaseAccess.emptyCart();
                     dialogSuccess(obj);
+                    Global.vorderList=null;
 
                 } else {
 

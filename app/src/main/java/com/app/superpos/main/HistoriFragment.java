@@ -1,4 +1,4 @@
-package com.app.superpos.orders;
+package com.app.superpos.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,14 +6,16 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -25,10 +27,11 @@ import com.app.superpos.global.Global;
 import com.app.superpos.model.OrderList;
 import com.app.superpos.networking.ApiClient;
 import com.app.superpos.networking.ApiInterface;
-import com.app.superpos.utils.BaseActivity;
+import com.app.superpos.orders.OrdersActivity;
 import com.app.superpos.utils.Utils;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
@@ -36,66 +39,55 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrdersActivity extends BaseActivity {
-
-
+public class HistoriFragment extends Fragment {
     private RecyclerView recyclerView;
 
     ImageView imgNoProduct;
     TextView txtNoProducts;
     EditText etxtSearch;
+    private View rootView;
     private ShimmerFrameLayout mShimmerViewContainer;
     SwipeRefreshLayout mSwipeRefreshLayout;
-
+    public HistoriFragment() {
+        // Required empty public constructor
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_orders);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        rootView= inflater.inflate(R.layout.fragment_history, container, false);
+        recyclerView = rootView.findViewById(R.id.recycler);
+        imgNoProduct = rootView.findViewById(R.id.image_no_product);
+        mShimmerViewContainer = rootView.findViewById(R.id.shimmer_view_container);
+        mSwipeRefreshLayout =rootView.findViewById(R.id.swipeToRefresh);
 
-        recyclerView = findViewById(R.id.recycler);
-        imgNoProduct = findViewById(R.id.image_no_product);
-        mShimmerViewContainer = findViewById(R.id.shimmer_view_container);
-        mSwipeRefreshLayout =findViewById(R.id.swipeToRefresh);
-
-        txtNoProducts=findViewById(R.id.txt_no_products);
-        etxtSearch=findViewById(R.id.etxt_search_order);
+        txtNoProducts=rootView.findViewById(R.id.txt_no_products);
+        etxtSearch=rootView.findViewById(R.id.etxt_search_order);
 
         //set color of swipe refresh
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
 
         imgNoProduct.setVisibility(View.GONE);
         txtNoProducts.setVisibility(View.GONE);
-
-        getSupportActionBar().setHomeButtonEnabled(true); //for back button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//for back button
-        getSupportActionBar().setTitle(R.string.order_history);
-
-        SharedPreferences sp = getSharedPreferences(Constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        getActivity().setTitle(R.string.order_history);
+        SharedPreferences sp = getActivity().getSharedPreferences(Constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String shopID = sp.getString(Constant.SP_SHOP_ID, "");
         String ownerId = sp.getString(Constant.SP_OWNER_ID, "");
-
-
-
-        // set a GridLayoutManager with default vertical orientation and 3 number of columns
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(OrdersActivity.this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager); // set LayoutManager to RecyclerView
 
         recyclerView.setHasFixedSize(true);
 
         Utils utils=new Utils();
-
-
-        //swipe refresh listeners
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
 
-            if (utils.isNetworkAvailable(OrdersActivity.this))
+            if (utils.isNetworkAvailable(getActivity()))
             {
                 getOrdersData("",shopID,ownerId);
             }
             else
             {
-                Toasty.error(OrdersActivity.this, R.string.no_network_connection, Toast.LENGTH_SHORT).show();
+                Toasty.error(getActivity(), R.string.no_network_connection, Toast.LENGTH_SHORT).show();
             }
 
 
@@ -104,7 +96,7 @@ public class OrdersActivity extends BaseActivity {
         });
 
 
-        if (utils.isNetworkAvailable(OrdersActivity.this))
+        if (utils.isNetworkAvailable(getActivity()))
         {
             //Load data from server
             getOrdersData("",shopID,ownerId);
@@ -118,7 +110,7 @@ public class OrdersActivity extends BaseActivity {
             //Stopping Shimmer Effects
             mShimmerViewContainer.stopShimmer();
             mShimmerViewContainer.setVisibility(View.GONE);
-            Toasty.error(this, R.string.no_network_connection, Toast.LENGTH_SHORT).show();
+            Toasty.error(getActivity(), R.string.no_network_connection, Toast.LENGTH_SHORT).show();
         }
 
 
@@ -153,17 +145,16 @@ public class OrdersActivity extends BaseActivity {
 
 
         });
-
+        return rootView;
     }
-
 
     public void getOrdersData(String searchText,String shopId,String ownerId) {
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<OrderList>> call;
         call = apiInterface.getOrders(searchText,shopId,ownerId);
-        if(Global.vorderList.isEmpty()) {
-            Toasty.info(OrdersActivity.this, "ini1", Toast.LENGTH_SHORT).show();
+        if(Global.vorderList==null) {
+
             call.enqueue(new Callback<List<OrderList>>() {
                 @Override
                 public void onResponse(@NonNull Call<List<OrderList>> call, @NonNull Response<List<OrderList>> response) {
@@ -182,6 +173,7 @@ public class OrdersActivity extends BaseActivity {
                             //Stopping Shimmer Effects
                             mShimmerViewContainer.stopShimmer();
                             mShimmerViewContainer.setVisibility(View.GONE);
+                            Global.vorderList= new ArrayList<>();
 
 
                         } else {
@@ -193,11 +185,11 @@ public class OrdersActivity extends BaseActivity {
 
                             recyclerView.setVisibility(View.VISIBLE);
                             imgNoProduct.setVisibility(View.GONE);
-                            OrderAdapter orderAdapter = new OrderAdapter(OrdersActivity.this, orderList);
+                            OrderAdapter orderAdapter = new OrderAdapter(getActivity(), orderList);
 
                             recyclerView.setAdapter(orderAdapter);
-                            Global.vorderList=orderList;
-
+                            Global.vorderList= orderList;
+                            //Global.vorderList=orderList;
                         }
 
                     }
@@ -206,42 +198,23 @@ public class OrdersActivity extends BaseActivity {
                 @Override
                 public void onFailure(@NonNull Call<List<OrderList>> call, @NonNull Throwable t) {
 
-                    Toast.makeText(OrdersActivity.this, R.string.something_went_wrong, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.something_went_wrong, Toast.LENGTH_SHORT).show();
                     Log.d("Error : ", t.toString());
                 }
             });
         }
-
         else {
-
-            Toasty.info(OrdersActivity.this, "ini", Toast.LENGTH_SHORT).show();
-
-
             //Stopping Shimmer Effects
             mShimmerViewContainer.stopShimmer();
             mShimmerViewContainer.setVisibility(View.GONE);
 
             recyclerView.setVisibility(View.VISIBLE);
             imgNoProduct.setVisibility(View.GONE);
-            OrderAdapter orderAdapter = new OrderAdapter(OrdersActivity.this, Global.vorderList);
+            OrderAdapter orderAdapter = new OrderAdapter(getActivity(), Global.vorderList);
 
             recyclerView.setAdapter(orderAdapter);
 
         }
 
-
-    }
-
-
-
-
-    //for back button
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            this.finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

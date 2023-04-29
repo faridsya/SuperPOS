@@ -20,7 +20,7 @@
     <color name="background">#dddddd</color>
 
     <color name="transparent_black">#88000000</color>
-
+    <color name="colorWhiteSmoke">#f6f6f6</color>
     <color name="red">#E32626</color>
 
 </resources>
