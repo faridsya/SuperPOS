@@ -307,7 +307,7 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="8dp"
                 android:textSize="13sp"
-                android:paddingBottom="10dp"
+                android:paddingBottom="20dp"
                 android:gravity="left"
                 android:text="*Tempelkan kartu NFC untuk proses pembayaran"
                 android:textStyle="italic|bold"
