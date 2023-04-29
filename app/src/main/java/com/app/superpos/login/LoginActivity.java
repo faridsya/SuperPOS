@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 
 import com.app.superpos.Constant;
 import com.app.superpos.HomeActivity;
+import com.app.superpos.MainActivity;
 import com.app.superpos.R;
 import com.app.superpos.model.Login;
 import com.app.superpos.networking.ApiClient;
@@ -160,7 +161,7 @@ public class LoginActivity extends BaseActivity {
                             editor.apply();
 
                             Toasty.success(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
 
                         }

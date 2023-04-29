@@ -28,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
         actionBar.hide();
 
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this,  MainActivity.class);
+            Intent intent = new Intent(SplashActivity.this,  LoginActivity.class);
             if (email.length() >= 3 && shopName.length()>=3 ) {
                 intent = new Intent(SplashActivity.this,  MainActivity.class);
             }
