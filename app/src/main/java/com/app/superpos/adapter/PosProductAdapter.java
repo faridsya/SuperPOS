@@ -173,7 +173,7 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
                     }
 
                     if (check == 1) {
-                        Toasty.success(context, R.string.product_added_to_cart, Toast.LENGTH_SHORT).show();
+                        //Toasty.success(context, R.string.product_added_to_cart, Toast.LENGTH_SHORT).show();
                         player.start();
                     } else if (check == 2) {
                         databaseAccess.open();
@@ -182,7 +182,7 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
 
                         databaseAccess.updateQty(productId, String.valueOf(jumlah));
                         player.start();
-                        Toasty.success(context, R.string.product_added_to_cart, Toast.LENGTH_SHORT).show();
+                        //Toasty.success(context, R.string.product_added_to_cart, Toast.LENGTH_SHORT).show();
                         //Toasty.info(context, R.string.product_already_added_to_cart, Toast.LENGTH_SHORT).show();
 
                     } else {
