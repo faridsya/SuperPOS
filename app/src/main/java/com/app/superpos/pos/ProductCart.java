@@ -310,6 +310,7 @@ public class ProductCart extends BaseActivity {
 
         databaseAccess.open();
         double orderPrice = databaseAccess.getTotalPrice();
+        databaseAccess.open();
         double orderPriceBefore=databaseAccess.getTotalPriceBefore();
 
 
