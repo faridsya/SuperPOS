@@ -95,6 +95,7 @@ public class ProductCart extends BaseActivity {
     ArrayAdapter<String> customerAdapter, orderTypeAdapter, paymentMethodAdapter;
     SharedPreferences sp;
     String servedBy,staffId,shopTax,currency,shopID,ownerId;
+    String cardId="";
     DecimalFormat f;
      AlertDialog alertDialogorder;
     List<HashMap<String, String>> lines;
@@ -263,7 +264,8 @@ public class ProductCart extends BaseActivity {
                 String text = null;
                 try {
                     text = new String(payload, lng + 1, payload.length - lng - 1, textencoding);
-
+                    cardId=text;
+                   // Toasty.error(ProductCart.this, text, Toast.LENGTH_SHORT).show();
                     final TextView dialogOrderPaymentMethod = dialogView.findViewById(R.id.dialog_order_status);
                     final TextView dialogOrderType = dialogView.findViewById(R.id.dialog_order_type);
                     final TextView dialogCustomer = dialogView.findViewById(R.id.dialog_customer);
@@ -308,6 +310,7 @@ public class ProductCart extends BaseActivity {
 
         databaseAccess.open();
         double orderPrice = databaseAccess.getTotalPrice();
+        double orderPriceBefore=databaseAccess.getTotalPriceBefore();
 
 
         if (itemCount > 0) {
@@ -332,7 +335,8 @@ public class ProductCart extends BaseActivity {
                 String timeStamp = tsLong.toString();
                 Log.d("Time", timeStamp);
                 //Invoice number=INV+StaffID+CurrentYear+timestamp
-                String invoiceNumber="INV"+staffId+currentYear+timeStamp;
+               // String invoiceNumber="INV"+staffId+currentYear+timeStamp;
+                String invoiceNumber="INV"+staffId+shopID;
 
                 final JSONObject obj = new JSONObject();
                 try {
@@ -346,11 +350,13 @@ public class ProductCart extends BaseActivity {
                     obj.put("customer_name", customerName);
 
                     obj.put("order_price", String.valueOf(orderPrice));
+                    obj.put("order_price_before", String.valueOf(orderPriceBefore));
                     obj.put("tax", String.valueOf(tax));
                     obj.put("discount", discount);
                     obj.put("served_by", servedBy);
                     obj.put("shop_id", shopID);
                     obj.put("owner_id", ownerId);
+                    obj.put("card_id", cardId);
 
                     JSONArray array = new JSONArray();
 
@@ -362,9 +368,6 @@ public class ProductCart extends BaseActivity {
                         String productId = lines.get(i).get("product_id");
                         String productName = lines.get(i).get("product_name");
                         String productImage = lines.get(i).get("product_image");
-
-
-
                         String productWeightUnit = lines.get(i).get("product_weight_unit");
 
 
@@ -377,6 +380,7 @@ public class ProductCart extends BaseActivity {
                         objp.put("product_weight", lines.get(i).get("product_weight") + " " + productWeightUnit);
                         objp.put("product_qty", lines.get(i).get("product_qty"));
                         objp.put("product_price", lines.get(i).get("product_price"));
+                        objp.put("product_price_before", lines.get(i).get("product_price_before"));
                         objp.put("product_order_date", currentDate);
                         objp.put("tax", lines.get(i).get("tax"));
 
@@ -515,6 +519,7 @@ public class ProductCart extends BaseActivity {
             i.putExtra(Constant.CUSTOMER_NAME, obj.optString("customer_name"));
             i.putExtra(Constant.TAX, obj.optString("tax"));
             i.putExtra(Constant.ORDER_PRICE, obj.optString("order_price"));
+            i.putExtra(Constant.ORDER_PRICE_BEFORE, obj.optString("order_price_before"));
             i.putExtra(Constant.DISCOUNT, obj.optString("discount"));
             i.putExtra(Constant.ORDER_DATE, obj.optString("order_date"));
             i.putExtra(Constant.ORDER_TIME,obj.optString("order_time"));

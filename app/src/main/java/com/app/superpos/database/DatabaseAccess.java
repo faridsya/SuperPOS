@@ -112,7 +112,7 @@ public class DatabaseAccess {
 
 
     //Add product into cart
-    public int addToCart(String productId, String productName, String weight, String weightUnit, String price, int qty, String productImage,String productStock,double tax) {
+    public int addToCart(String productId, String productName, String weight, String weightUnit, String price, int qty, String productImage,String productStock,double tax,String priceBeefore) {
 
 
         Cursor result = database.rawQuery("SELECT * FROM product_cart WHERE product_id='" + productId + "'", null);
@@ -127,6 +127,7 @@ public class DatabaseAccess {
             values.put(Constant.PRODUCT_WEIGHT, weight);
             values.put(Constant.PRODUCT_WEIGHT_UNIT, weightUnit);
             values.put(Constant.PRODUCT_PRICE, price);
+            values.put(Constant.PRODUCT_PRICE_BEFORE, priceBeefore);
             values.put(Constant.PRODUCT_QTY, qty);
             values.put(Constant.PRODUCT_IMAGE, productImage);
             values.put(Constant.PRODUCT_STOCK, productStock);
@@ -181,6 +182,7 @@ public class DatabaseAccess {
                 map.put(Constant.PRODUCT_WEIGHT, cursor.getString(cursor.getColumnIndex("product_weight")));
                 map.put(Constant.PRODUCT_WEIGHT_UNIT, cursor.getString(cursor.getColumnIndex("product_weight_unit")));
                 map.put(Constant.PRODUCT_PRICE, cursor.getString(cursor.getColumnIndex("product_price")));
+                map.put(Constant.PRODUCT_PRICE_BEFORE, cursor.getString(cursor.getColumnIndex("product_price_before")));
                 map.put(Constant.PRODUCT_QTY, cursor.getString(cursor.getColumnIndex("product_qty")));
                 map.put(Constant.PRODUCT_IMAGE, cursor.getString(cursor.getColumnIndex("product_image")));
                 map.put(Constant.PRODUCT_STOCK, cursor.getString(cursor.getColumnIndex("product_stock")));
@@ -298,6 +300,30 @@ public class DatabaseAccess {
             do {
 
                 double price = Double.parseDouble(cursor.getString(cursor.getColumnIndex("product_price")));
+                int qty = Integer.parseInt(cursor.getString(cursor.getColumnIndex("product_qty")));
+                double subTotal = price * qty;
+                totalPrice = totalPrice + subTotal;
+
+
+            } while (cursor.moveToNext());
+        } else {
+            totalPrice = 0;
+        }
+        cursor.close();
+        database.close();
+        return totalPrice;
+    }
+
+    public double getTotalPriceBefore() {
+
+
+        double totalPrice = 0;
+
+        Cursor cursor = database.rawQuery("SELECT * FROM product_cart", null);
+        if (cursor.moveToFirst()) {
+            do {
+
+                double price = Double.parseDouble(cursor.getString(cursor.getColumnIndex("product_price_before")));
                 int qty = Integer.parseInt(cursor.getString(cursor.getColumnIndex("product_qty")));
                 double subTotal = price * qty;
                 totalPrice = totalPrice + subTotal;

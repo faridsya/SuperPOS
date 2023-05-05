@@ -24,6 +24,9 @@ public class OrderList {
     @SerializedName("order_price")
     private String orderPrice;
 
+    @SerializedName("order_price_before")
+    private String orderPriceBefore;
+
 
     @SerializedName("order_payment_method")
     private String orderPaymentMethod;
@@ -99,6 +102,10 @@ public class OrderList {
 
     public String getOrderPrice() {
         return orderPrice;
+    }
+
+    public String getOrderPriceBefore() {
+        return orderPriceBefore;
     }
 
 

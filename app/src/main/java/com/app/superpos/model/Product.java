@@ -26,6 +26,9 @@ public class Product {
     @SerializedName("product_sell_price")
     private String productSellPrice;
 
+    @SerializedName("product_sell_before")
+    private String productSellBefore;
+
     @SerializedName("product_buy_price")
     private String productBuyPrice;
 
@@ -93,6 +96,10 @@ public class Product {
 
     public String getProductSellPrice() {
         return productSellPrice;
+    }
+
+    public String getProductSellBefore() {
+        return productSellBefore;
     }
 
     public String getProductWeight() {

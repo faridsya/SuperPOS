@@ -71,6 +71,7 @@ public class Constant {
     public static final String TAX="tax";
     public static final String DISCOUNT="discount";
     public static final String ORDER_PRICE="order_price";
+    public static final String ORDER_PRICE_BEFORE="order_price_before";
 
     public static final String ID="id";
     public static final String USER_NAME="user_name";
@@ -97,6 +98,7 @@ public class Constant {
     public static final String PRODUCT_WEIGHT="product_weight";
     public static final String PRODUCT_STOCK="product_stock";
     public static final String PRODUCT_PRICE="product_price";
+    public static final String PRODUCT_PRICE_BEFORE="product_price_before";
     public static final String PRODUCT_QTY="product_qty";
     public static final String PRODUCT_SUPPLIER="product_supplier";
     public static final String PRODUCT_SELL_PRICE="product_sell_price";

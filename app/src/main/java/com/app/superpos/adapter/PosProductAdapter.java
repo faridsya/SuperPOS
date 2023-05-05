@@ -66,6 +66,7 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
         String productName = productData.get(position).getProductName();
         String productWeight = productData.get(position).getProductWeight();
         String productPrice = productData.get(position).getProductSellPrice();
+        String productPriceBefore = productData.get(position).getProductSellBefore();
         String weightUnit = productData.get(position).getProductWeightUnit();
         String productImage = productData.get(position).getProductImage();
         String productStock = productData.get(position).getProductStock();
@@ -158,7 +159,7 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
 
                     databaseAccess.open();
 
-                    int check = databaseAccess.addToCart(productId,productName, productWeight, weightUnit, productPrice, 1,productImage,productStock,taxAmount);
+                    int check = databaseAccess.addToCart(productId,productName, productWeight, weightUnit, productPrice, 1,productImage,productStock,taxAmount,productPriceBefore);
 
                     databaseAccess.open();
                     int count=databaseAccess.getCartItemCount();

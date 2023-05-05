@@ -173,6 +173,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             i.putExtra(Constant.CUSTOMER_NAME, orderData.get(getAdapterPosition()).getCustomerName());
             i.putExtra(Constant.TAX, orderData.get(getAdapterPosition()).getTax());
             i.putExtra(Constant.ORDER_PRICE, orderData.get(getAdapterPosition()).getOrderPrice());
+            i.putExtra(Constant.ORDER_PRICE_BEFORE, orderData.get(getAdapterPosition()).getOrderPriceBefore());
             i.putExtra(Constant.DISCOUNT, orderData.get(getAdapterPosition()).getDiscount());
             i.putExtra(Constant.ORDER_DATE, orderData.get(getAdapterPosition()).getOrderDate());
             i.putExtra(Constant.ORDER_TIME, orderData.get(getAdapterPosition()).getOrderTime());
