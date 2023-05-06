@@ -55,17 +55,18 @@
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-                    <TextView
-                        android:background="@drawable/rounded_button2"
-                        android:id="@+id/txt_order_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sailec_regular"
-                        android:padding="3dp"
-                        android:textColor="@color/white"
-                        android:text="Order Type"
-                        android:textAllCaps="true"
-                        android:textSize="12sp" />
+<!--                    <TextView-->
+<!--                        android:background="@drawable/rounded_button2"-->
+<!--                        android:id="@+id/txt_order_type"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/sailec_regular"-->
+<!--                        -->
+<!--                        android:padding="3dp"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:text="Order Type"-->
+<!--                        android:textAllCaps="true"-->
+<!--                        android:textSize="12sp" />-->
 
                     <TextView
                         android:background="@drawable/rounded_button3"

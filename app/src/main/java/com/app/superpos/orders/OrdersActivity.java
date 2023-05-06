@@ -162,7 +162,7 @@ public class OrdersActivity extends BaseActivity {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<OrderList>> call;
         call = apiInterface.getOrders(searchText,shopId,ownerId);
-        if(Global.vorderList.isEmpty()) {
+        if(Global.vorderList==null) {
             Toasty.info(OrdersActivity.this, "ini1", Toast.LENGTH_SHORT).show();
             call.enqueue(new Callback<List<OrderList>>() {
                 @Override

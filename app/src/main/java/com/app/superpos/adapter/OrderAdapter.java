@@ -86,7 +86,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         holder.txtInvoiceId.setText(invoiceId);
 
         holder.txtPaymentMethod.setText(orderPaymentMethod);
-        holder.txtOrderType.setText(orderType);
+        //holder.txtOrderType.setText(orderType);
         holder.txtDate.setText(orderTime + " " + reformattedDate);
 
         if (orderNote == null || orderNote.equals("N/A")) {
@@ -156,7 +156,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
             txtInvoiceId = itemView.findViewById(R.id.txt_invoice_number);
             txtCustomerName = itemView.findViewById(R.id.txt_customer_name);
-            txtOrderType = itemView.findViewById(R.id.txt_order_type);
+           // txtOrderType = itemView.findViewById(R.id.txt_order_type);
             txtPaymentMethod = itemView.findViewById(R.id.txt_payment_method);
             txtDate = itemView.findViewById(R.id.txt_date);
             txtOrderNote = itemView.findViewById(R.id.txt_order_note);

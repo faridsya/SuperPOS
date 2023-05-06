@@ -543,7 +543,7 @@ public class EditProductActivity extends BaseActivity {
 
                         String productStock = productData.get(0).getProductStock();
                         String productBuyPrice = productData.get(0).getProductBuyPrice();
-                        String productSellPrice = productData.get(0).getProductSellPrice();
+                        String productSellPrice = productData.get(0).getProductSellBefore();
                         String productSupplierName = productData.get(0).getProductSupplierName();
                         String productImage = productData.get(0).getProductImage();
 

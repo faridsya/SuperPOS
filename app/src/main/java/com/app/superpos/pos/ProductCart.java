@@ -228,6 +228,7 @@ public class ProductCart extends BaseActivity {
 
         // disabling foreground dispatch:
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if(nfcAdapter!=null)
         nfcAdapter.disableForegroundDispatch(this);
     }
 
