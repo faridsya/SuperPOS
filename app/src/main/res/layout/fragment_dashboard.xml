@@ -128,8 +128,10 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:padding="10dp"
+                                    android:background="@drawable/circle_green"
                                     app:srcCompat="@drawable/pos_terminal"
                                     tools:ignore="VectorDrawableCompat" />
 
@@ -164,8 +166,10 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:padding="10dp"
+                                    android:background="@drawable/circle"
                                     app:srcCompat="@drawable/supplier"
                                     tools:ignore="VectorDrawableCompat" />
 
@@ -203,8 +207,10 @@
 
                                 <ImageView
 
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:padding="10dp"
+                                    android:background="@drawable/circle_yellow"
                                     app:srcCompat="@drawable/products"
                                     tools:ignore="VectorDrawableCompat" />
 
@@ -251,8 +257,10 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:padding="10dp"
+                                    android:background="@drawable/circle_red"
                                     app:srcCompat="@drawable/customer"
                                     tools:ignore="VectorDrawableCompat" />
 
@@ -288,8 +296,10 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:padding="10dp"
+                                    android:background="@drawable/circle_grey"
                                     app:srcCompat="@drawable/expense"
                                     tools:ignore="VectorDrawableCompat" />
 
@@ -324,8 +334,10 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:padding="10dp"
+                                    android:background="@drawable/circle_lain1"
                                     app:srcCompat="@drawable/expense_report"
                                     tools:ignore="VectorDrawableCompat" />
 
@@ -370,8 +382,10 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:padding="10dp"
+                                    android:background="@drawable/circle"
                                     app:srcCompat="@drawable/report"
                                     tools:ignore="VectorDrawableCompat" />
 
@@ -407,8 +421,10 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:padding="10dp"
+                                    android:background="@drawable/circle_pink"
                                     app:srcCompat="@drawable/settings"
                                     tools:ignore="VectorDrawableCompat" />
 
@@ -443,8 +459,10 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:padding="10dp"
+                                    android:background="@drawable/circle"
                                     app:srcCompat="@drawable/logout"
                                     tools:ignore="VectorDrawableCompat" />
 

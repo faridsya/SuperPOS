@@ -2,6 +2,7 @@ package com.app.superpos.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,13 +40,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     Context context;
     private List<OrderList> orderData;
     Utils utils;
-
+    SharedPreferences sp;
+    String currency;
 
     public OrderAdapter(Context context, List<OrderList> orderData) {
         this.context = context;
         this.orderData = orderData;
         utils = new Utils();
-
+        sp = context.getSharedPreferences(Constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        currency = sp.getString(Constant.SP_CURRENCY_SYMBOL, "");
 
     }
 
@@ -66,7 +69,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         String orderDate = orderData.get(position).getOrderDate();
         String orderTime = orderData.get(position).getOrderTime();
         String orderPaymentMethod = orderData.get(position).getOrderPaymentMethod();
-        String orderType = orderData.get(position).getOrderType();
+        String orderPrice = orderData.get(position).getOrderPrice();
         String orderNote = orderData.get(position).getOrderNote();
 
 
@@ -86,7 +89,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         holder.txtInvoiceId.setText(invoiceId);
 
         holder.txtPaymentMethod.setText(orderPaymentMethod);
-        //holder.txtOrderType.setText(orderType);
+        holder.txtOrderPrice.setText(currency +orderPrice);
         holder.txtDate.setText(orderTime + " " + reformattedDate);
 
         if (orderNote == null || orderNote.equals("N/A")) {
@@ -148,7 +151,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView txtCustomerName, txtOrderNote, txtInvoiceId, txtOrderType, txtPaymentMethod, txtDate;
+        TextView txtCustomerName, txtOrderNote, txtInvoiceId, txtOrderPrice, txtPaymentMethod, txtDate;
         ImageView imgDelete, imgOrderImage;
 
         public MyViewHolder(View itemView) {
@@ -156,7 +159,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
             txtInvoiceId = itemView.findViewById(R.id.txt_invoice_number);
             txtCustomerName = itemView.findViewById(R.id.txt_customer_name);
-           // txtOrderType = itemView.findViewById(R.id.txt_order_type);
+            txtOrderPrice = itemView.findViewById(R.id.txt_order_price);
             txtPaymentMethod = itemView.findViewById(R.id.txt_payment_method);
             txtDate = itemView.findViewById(R.id.txt_date);
             txtOrderNote = itemView.findViewById(R.id.txt_order_note);

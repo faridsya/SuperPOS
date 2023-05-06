@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements ILottieBottomNavC
 
         //Set font item
         FontItem fontItem = FontBuilder.create("Dashboard")
-                .selectedTextColor(Color.BLACK)
+                .selectedTextColor(Color.WHITE)
                 .unSelectedTextColor(Color.GRAY)
                 .selectedTextSize(16) //SP
                 .unSelectedTextSize(12) //SP
