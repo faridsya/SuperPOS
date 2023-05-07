@@ -140,8 +140,9 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:text="@string/pos"
+                                    app:fontFamily="@font/georgiab"
                                     android:textAllCaps="false"
-                                    android:textSize="15sp" />
+                                    android:textSize="14sp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -179,8 +180,9 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:text="@string/suppliers"
+                                    app:fontFamily="@font/georgiab"
                                     android:textAllCaps="false"
-                                    android:textSize="15sp" />
+                                    android:textSize="14sp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -221,7 +223,8 @@
                                     android:gravity="center"
                                     android:text="@string/products"
                                     android:textAllCaps="false"
-                                    android:textSize="15sp" />
+                                    android:textSize="14sp"
+                                    app:fontFamily="@font/georgiab" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -269,8 +272,9 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:text="@string/customers"
+                                    app:fontFamily="@font/georgiab"
                                     android:textAllCaps="false"
-                                    android:textSize="15sp" />
+                                    android:textSize="14sp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -308,8 +312,9 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:text="@string/all_orders"
+                                    app:fontFamily="@font/georgiab"
                                     android:textAllCaps="false"
-                                    android:textSize="15sp" />
+                                    android:textSize="14sp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -346,8 +351,9 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:text="@string/expense"
+                                    app:fontFamily="@font/georgiab"
                                     android:textAllCaps="false"
-                                    android:textSize="15sp" />
+                                    android:textSize="14sp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -394,8 +400,9 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:text="@string/report"
+                                    app:fontFamily="@font/georgiab"
                                     android:textAllCaps="false"
-                                    android:textSize="15sp" />
+                                    android:textSize="14sp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -433,8 +440,9 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:text="@string/action_settings"
+                                    app:fontFamily="@font/georgiab"
                                     android:textAllCaps="false"
-                                    android:textSize="15sp" />
+                                    android:textSize="14sp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -471,8 +479,9 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:text="@string/logout"
+                                    app:fontFamily="@font/georgiab"
                                     android:textAllCaps="false"
-                                    android:textSize="15sp" />
+                                    android:textSize="14sp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 

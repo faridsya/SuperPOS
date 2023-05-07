@@ -62,7 +62,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:foregroundGravity="center"
-
                     android:tint="@android:color/white"
                     android:src="@drawable/ic_delete" />
 
@@ -94,10 +93,10 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_marginLeft="25dp"
-                    android:background="@drawable/circle"
+                    android:background="@drawable/circle_white"
                     android:gravity="center"
                     android:text="10"
-                    android:textColor="@android:color/holo_red_light"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="10sp" />
             </RelativeLayout>
 

@@ -209,7 +209,7 @@
     <string name="no_network_connection">No network connection</string>
     <string name="products">Produk</string>
     <string name="stock">Stok</string>
-    <string name="stock_not_available_please_update_stock">Stok tidak tersedia. Perbarui stok dahulu</string>
+    <string name="stock_not_available_please_update_stock">Stok tidak tersedia..\nPerbarui stok dahulu</string>
     <string name="low_stock">Hampir habis</string>
     <string name="not_available">Tidak tersedia</string>
     <string name="in_stock">Tersedia</string>
