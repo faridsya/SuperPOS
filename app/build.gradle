@@ -88,5 +88,8 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.4.1'
     implementation 'androidx.appcompat:appcompat:1.2.0'
 
+    //pin
+
+
 
 }
