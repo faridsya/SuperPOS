@@ -42,7 +42,7 @@ public interface ApiInterface {
 
 
     //calling json array , need list
-    @POST("orders_submit.php")
+    @POST("orders_submitbaru.php")
     Call<String> submitOrders(
             @Body RequestBody ordersData
     );

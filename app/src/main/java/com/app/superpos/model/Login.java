@@ -57,6 +57,8 @@ public class Login {
     @SerializedName("owner_id")
     private String ownerID;
 
+    @SerializedName("owner_cardnumber")
+    private String owner_cardnumber;
 
 
 
@@ -142,6 +144,10 @@ public class Login {
 
     public String getOwnerID() {
         return ownerID;
+    }
+
+    public String getCardNumber() {
+        return owner_cardnumber;
     }
 
 

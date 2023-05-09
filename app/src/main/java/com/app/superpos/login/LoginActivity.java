@@ -124,6 +124,7 @@ public class LoginActivity extends BaseActivity {
 
                     String shopId = response.body().getShopId();
                     String ownerId = response.body().getOwnerID();
+                    String ownerCardnumber = response.body().getCardNumber();
 
                     if (shopName != null || shopAddress != null || shopContact != null || shopEmail != null || tax != null || currencySymbol != null || shopStatus != null || staffId != null || staffName != null || userType != null) {
 
@@ -154,7 +155,7 @@ public class LoginActivity extends BaseActivity {
                             editor.putString(Constant.SP_SHOP_STATUS, shopStatus);
                             editor.putString(Constant.SP_CURRENCY_SYMBOL, currencySymbol);
                             editor.putString(Constant.SP_SHOP_ID, shopId);
-                            editor.putString(Constant.SP_OWNER_ID, ownerId);
+                            editor.putString(Constant.SP_OWNER_Cardnumber, ownerCardnumber);
 
 
                             //Saving values to Share preference

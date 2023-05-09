@@ -23,5 +23,7 @@
     <color name="colorWhiteSmoke">#f6f6f6</color>
     <color name="red">#E32626</color>
     <color name="green">#42E326</color>
+    <color name="trueBlack">#000000</color>
 
+    <color name="otp_editext_color">#DAE2DFDF</color>
 </resources>

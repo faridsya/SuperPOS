@@ -3,6 +3,7 @@ package com.app.superpos.pos;
 import static android.content.ContentValues.TAG;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -26,9 +27,11 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +48,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.android.volley.Request;
+//import com.android.volley.Response ;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.app.superpos.Constant;
 import com.app.superpos.R;
 import com.app.superpos.adapter.CartAdapter;
@@ -77,7 +86,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
+import retrofit2.Response ;
 
 public class ProductCart extends BaseActivity {
 
@@ -96,10 +105,14 @@ public class ProductCart extends BaseActivity {
     List<Customer> customerData;
     ArrayAdapter<String> customerAdapter, orderTypeAdapter, paymentMethodAdapter;
     SharedPreferences sp;
-    String servedBy,staffId,shopTax,currency,shopID,ownerId;
+    String servedBy,staffId,shopTax,currency,shopID,ownerId,ownerCardnumber;
     String cardId="";
     DecimalFormat f;
+    EditText mEt1, mEt2, mEt3, mEt4, mEt5, mEt6;
+    Button saveButton;
+    String pinkartu = "";
      AlertDialog alertDialogorder;
+    Dialog dialogpin;
     List<HashMap<String, String>> lines;
     private final String[][] techList = new String[][] {
             new String[] {
@@ -130,6 +143,7 @@ public class ProductCart extends BaseActivity {
 
         shopID = sp.getString(Constant.SP_SHOP_ID, "");
         ownerId = sp.getString(Constant.SP_OWNER_ID, "");
+        ownerCardnumber = sp.getString(Constant.SP_OWNER_Cardnumber, "");
 
 
 
@@ -361,6 +375,8 @@ public class ProductCart extends BaseActivity {
                     obj.put("shop_id", shopID);
                     obj.put("owner_id", ownerId);
                     obj.put("card_id", cardId);
+                    obj.put("pinkartu", pinkartu);
+                    obj.put("owner_cardnumber", ownerCardnumber);
 
                     JSONArray array = new JSONArray();
 
@@ -434,6 +450,7 @@ public class ProductCart extends BaseActivity {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.please_wait));
         progressDialog.show();
+        Log.d("tesparameter",String.valueOf(obj));
 
         RequestBody body2 = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), String.valueOf(obj));
 
@@ -443,8 +460,9 @@ public class ProductCart extends BaseActivity {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-
+                Log.d("responna",response.body());
                 if (response.isSuccessful()) {
+
 
                     progressDialog.dismiss();
                     Toasty.success(ProductCart.this, R.string.order_successfully_done, Toast.LENGTH_SHORT).show();
@@ -477,7 +495,76 @@ public class ProductCart extends BaseActivity {
 
     }
 
+    public void postData(final JSONObject obj){
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.please_wait));
+        progressDialog.show();
 
+        String url="https://bandungtech.my.id/superpos/api/orders_submitbaru.php";
+
+        RequestQueue requstQueue = Volley.newRequestQueue(this);
+       // HashMap<String, String> params = new HashMap<String, String>();
+        //params.put("token", "AbCdEfGh123456");
+
+
+
+
+        JsonObjectRequest jsonobj = new JsonObjectRequest(Request.Method.POST, url,obj,
+                new com.android.volley.Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("JSONPost :", response.toString());
+
+                        try {
+
+
+                            String query_result = response.getString("hasil");
+
+                            if (query_result.equals("sukses")) {
+                                JSONArray jArray = new JSONArray(response.getString("data"));
+                                Log.d("JumArray :", String.valueOf(jArray.length()));
+                                // JSONObject data= new JSONObject(response.getString("data"));
+
+                            }
+
+                            else {
+                                Toast.makeText(getApplicationContext(), response.getString("data"), Toast.LENGTH_SHORT).show();
+
+
+                            }
+
+                        } catch (final JSONException e) {
+                            Log.e("tau", "Json parsing error: " + e.getMessage());
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(),
+                                                    "Json parsing error: " + e.getMessage(),
+                                                    Toast.LENGTH_LONG)
+                                            .show();
+                                }
+                            });
+
+                        } //
+                        progressDialog.dismiss();
+
+
+                    }
+                },
+                new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Log.d("Image response", error.toString());
+                        Log.d("JSONPost :","ggal");
+                    }
+                }
+        ){
+            //here I want to post data to sever
+        };
+        requstQueue.add(jsonobj);
+
+    }
 
 
     public void dialogSuccess(final JSONObject obj) {
@@ -846,8 +933,9 @@ public class ProductCart extends BaseActivity {
                 discount1 = "0.00";
             }
 
-            proceedOrder(orderType1, orderPaymentMethod, customerName, getTax, discount1, calculatedTotalCost);
+            //proceedOrder(orderType1, orderPaymentMethod, customerName, getTax, discount1, calculatedTotalCost);
 
+            showPin();
 
             alertDialogorder.dismiss();
         });
@@ -866,9 +954,138 @@ public class ProductCart extends BaseActivity {
         });
     }
 
+    private void showPin() {
+
+         dialogpin = new Dialog(this);
+        dialogpin.setContentView(R.layout.dialog_pin);
+        mEt1 = dialogpin.findViewById(R.id.otp_edit_text1);
+        mEt2 = dialogpin.findViewById(R.id.otp_edit_text2);
+        mEt3 = dialogpin.findViewById(R.id.otp_edit_text3);
+        mEt4 = dialogpin.findViewById(R.id.otp_edit_text4);
+        mEt5 = dialogpin.findViewById(R.id.otp_edit_text5);
+        mEt6 = dialogpin.findViewById(R.id.otp_edit_text6);
+        addTextWatcher(mEt1);
+        addTextWatcher(mEt2);
+        addTextWatcher(mEt3);
+        addTextWatcher(mEt4);
+        addTextWatcher(mEt5);
+        addTextWatcher(mEt6);
+        //Mengeset judul dialog
+        dialogpin.setTitle("Masukkan PIN");
+
+        //Mengeset layout
 
 
+        //Membuat agar dialog tidak hilang saat di click di area luar dialog
+        dialogpin.setCanceledOnTouchOutside(false);
 
+        //Membuat dialog agar berukuran responsive
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        int width = metrics.widthPixels;
+        dialogpin.getWindow().setLayout((6 * width) / 7, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+
+         saveButton = (Button) dialogpin.findViewById(R.id.btn_verify);
+
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final TextView dialogOrderPaymentMethod = dialogView.findViewById(R.id.dialog_order_status);
+                final TextView dialogOrderType = dialogView.findViewById(R.id.dialog_order_type);
+                final TextView dialogCustomer = dialogView.findViewById(R.id.dialog_customer);
+
+                final EditText dialogEtxtDiscount = dialogView.findViewById(R.id.etxt_dialog_discount);
+                String orderType1 =  dialogOrderType.getText().toString().trim();
+                String orderPaymentMethod = dialogOrderPaymentMethod.getText().toString().trim();
+                String customerName = dialogCustomer.getText().toString().trim();
+                String discount1 = dialogEtxtDiscount.getText().toString().trim();
+                if (discount1.isEmpty()) {
+                    discount1 = "0.00";
+                }
+
+                double getTax = totalTax;
+                //vpin =txtPin.getText().toString();
+                pinkartu=mEt1.getText().toString()+mEt2.getText().toString()+mEt3.getText().toString()+mEt4.getText().toString()+mEt5.getText().toString()+mEt6.getText().toString();
+                proceedOrder(orderType1, orderPaymentMethod, customerName, getTax, discount1, calculatedTotalCost);
+                dialogpin.dismiss();
+
+
+            }
+        });
+
+//        cancelButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+
+        //Menampilkan custom dialog
+        dialogpin.show();
+
+    }
+
+
+    private void addTextWatcher(final EditText one) {
+        one.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                switch (one.getId()) {
+                    case R.id.otp_edit_text1:
+                        if (one.length() == 1) {
+                            mEt2.requestFocus();
+                        }
+                        break;
+                    case R.id.otp_edit_text2:
+                        if (one.length() == 1) {
+                            mEt3.requestFocus();
+                        } else if (one.length() == 0) {
+                            mEt1.requestFocus();
+                        }
+                        break;
+                    case R.id.otp_edit_text3:
+                        if (one.length() == 1) {
+                            mEt4.requestFocus();
+                        } else if (one.length() == 0) {
+                            mEt2.requestFocus();
+                        }
+                        break;
+                    case R.id.otp_edit_text4:
+                        if (one.length() == 1) {
+                            mEt5.requestFocus();
+                        } else if (one.length() == 0) {
+                            mEt3.requestFocus();
+                        }
+                        break;
+                    case R.id.otp_edit_text5:
+                        if (one.length() == 1) {
+                            mEt6.requestFocus();
+                        } else if (one.length() == 0) {
+                            mEt4.requestFocus();
+                        }
+                        break;
+                    case R.id.otp_edit_text6:
+                        if (one.length() == 1) {
+                            saveButton.requestFocus();
+                        } else if (one.length() == 0) {
+                            mEt5.requestFocus();
+                        }
+                        break;
+                }
+            }
+        });
+    }
     public void getCustomers(String shopId,String ownerId) {
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
