@@ -53,6 +53,7 @@ public class Constant {
     public static final String SP_SHOP_ID="shop_id";
     public static final String SP_OWNER_ID="owner_id";
     public static final String SP_OWNER_Cardnumber="owner_cardnumber";
+    public static final String SP_SHOWPIN="showpin";
 
     public static final String INVOICE_ID="invoice_id";
     public static final String ORDER_DATE="order_date";

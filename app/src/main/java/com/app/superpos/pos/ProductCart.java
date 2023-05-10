@@ -112,6 +112,7 @@ public class ProductCart extends BaseActivity {
     EditText mEt1, mEt2, mEt3, mEt4, mEt5, mEt6;
     Button saveButton;
     String pinkartu = "";
+    boolean showpin=false;
      AlertDialog alertDialogorder;
     Dialog dialogpin;
     List<HashMap<String, String>> lines;
@@ -138,6 +139,7 @@ public class ProductCart extends BaseActivity {
         sp = getSharedPreferences(Constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
         servedBy = sp.getString(Constant.SP_STAFF_NAME, "");
+        showpin = sp.getBoolean(Constant.SP_SHOWPIN, false);
         staffId = sp.getString(Constant.SP_STAFF_ID, "");
         shopTax= sp.getString(Constant.SP_TAX, "");
         currency= sp.getString(Constant.SP_CURRENCY_SYMBOL, "");
@@ -871,10 +873,11 @@ public class ProductCart extends BaseActivity {
             if (discount1.isEmpty()) {
                 discount1 = "0.00";
             }
+            if(showpin)   showPin();
+            else
+            proceedOrder(orderType1, orderPaymentMethod, customerName, getTax, discount1, calculatedTotalCost);
 
-            //proceedOrder(orderType1, orderPaymentMethod, customerName, getTax, discount1, calculatedTotalCost);
 
-            showPin();
 
             //alertDialogorder.dismiss();
         });

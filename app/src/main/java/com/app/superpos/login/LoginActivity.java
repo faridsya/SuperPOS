@@ -125,6 +125,7 @@ public class LoginActivity extends BaseActivity {
                     String shopId = response.body().getShopId();
                     String ownerId = response.body().getOwnerID();
                     String ownerCardnumber = response.body().getCardNumber();
+                    boolean showpin = response.body().getShowpin();
 
                     if (shopName != null || shopAddress != null || shopContact != null || shopEmail != null || tax != null || currencySymbol != null || shopStatus != null || staffId != null || staffName != null || userType != null) {
 
@@ -155,6 +156,8 @@ public class LoginActivity extends BaseActivity {
                             editor.putString(Constant.SP_SHOP_STATUS, shopStatus);
                             editor.putString(Constant.SP_CURRENCY_SYMBOL, currencySymbol);
                             editor.putString(Constant.SP_SHOP_ID, shopId);
+                            editor.putBoolean(Constant.SP_SHOWPIN, showpin);
+                            editor.putString(Constant.SP_OWNER_ID, ownerId);
                             editor.putString(Constant.SP_OWNER_Cardnumber, ownerCardnumber);
 
 

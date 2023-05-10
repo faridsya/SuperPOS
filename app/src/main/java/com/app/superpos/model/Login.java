@@ -59,7 +59,8 @@ public class Login {
 
     @SerializedName("owner_cardnumber")
     private String owner_cardnumber;
-
+    @SerializedName("showpin")
+    private boolean showpin;
 
 
 
@@ -144,6 +145,10 @@ public class Login {
 
     public String getOwnerID() {
         return ownerID;
+    }
+
+    public Boolean getShowpin() {
+        return showpin;
     }
 
     public String getCardNumber() {
