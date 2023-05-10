@@ -419,7 +419,8 @@ public class ProductCart extends BaseActivity {
 
                 if(utils.isNetworkAvailable(ProductCart.this))
                 {
-                   orderSubmit(obj);
+                  // orderSubmit(obj);
+                    postData(obj);
                 }
                 else
                 {
@@ -500,15 +501,9 @@ public class ProductCart extends BaseActivity {
         progressDialog.setMessage(getString(R.string.please_wait));
         progressDialog.show();
 
-        String url="https://bandungtech.my.id/superpos/api/orders_submitbaru.php";
+        String url=Global.urlAPI+"orders_submitbaru.php";
 
         RequestQueue requstQueue = Volley.newRequestQueue(this);
-       // HashMap<String, String> params = new HashMap<String, String>();
-        //params.put("token", "AbCdEfGh123456");
-
-
-
-
         JsonObjectRequest jsonobj = new JsonObjectRequest(Request.Method.POST, url,obj,
                 new com.android.volley.Response.Listener<JSONObject>() {
                     @Override
@@ -521,17 +516,22 @@ public class ProductCart extends BaseActivity {
                             String query_result = response.getString("hasil");
 
                             if (query_result.equals("sukses")) {
-                                JSONArray jArray = new JSONArray(response.getString("data"));
-                                Log.d("JumArray :", String.valueOf(jArray.length()));
-                                // JSONObject data= new JSONObject(response.getString("data"));
+                                alertDialogorder.dismiss();
+
+                                databaseAccess.open();
+                                databaseAccess.emptyCart();
+                                dialogSuccess(obj);
+                                Global.vorderList=null;
 
                             }
 
                             else {
-                                Toast.makeText(getApplicationContext(), response.getString("data"), Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(getApplicationContext(), response.getString("data"), Toast.LENGTH_SHORT).show();
+                                Toasty.error(ProductCart.this,response.getString("data"), Toast.LENGTH_SHORT).show();
 
 
                             }
+
 
                         } catch (final JSONException e) {
                             Log.e("tau", "Json parsing error: " + e.getMessage());
@@ -937,7 +937,7 @@ public class ProductCart extends BaseActivity {
 
             showPin();
 
-            alertDialogorder.dismiss();
+            //alertDialogorder.dismiss();
         });
 
 

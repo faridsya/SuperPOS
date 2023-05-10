@@ -10,4 +10,5 @@ public class Global {
     public static String svar1, svar2;
     public static int[] myarray1 = new int[10];
     public static List<OrderList> vorderList=null;
+    public static String urlAPI="https://bandungtech.my.id/superpos/api/";
 }
