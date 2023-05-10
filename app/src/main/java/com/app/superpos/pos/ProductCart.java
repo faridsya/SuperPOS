@@ -31,6 +31,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -240,9 +241,6 @@ public class ProductCart extends BaseActivity {
     protected void onPause() {
         super.onPause();
 
-        Log.d("onPause", "1");
-
-        // disabling foreground dispatch:
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if(nfcAdapter!=null)
         nfcAdapter.disableForegroundDispatch(this);
@@ -435,65 +433,6 @@ public class ProductCart extends BaseActivity {
         } else {
             Toasty.error(ProductCart.this, R.string.no_product_in_cart, Toast.LENGTH_SHORT).show();
         }
-    }
-
-
-
-
-
-    private void orderSubmit(final JSONObject obj) {
-
-        Log.d("Json",obj.toString());
-
-
-        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getString(R.string.please_wait));
-        progressDialog.show();
-        Log.d("tesparameter",String.valueOf(obj));
-
-        RequestBody body2 = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), String.valueOf(obj));
-
-
-        Call<String> call = apiInterface.submitOrders(body2);
-
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-                Log.d("responna",response.body());
-                if (response.isSuccessful()) {
-
-
-                    progressDialog.dismiss();
-                    Toasty.success(ProductCart.this, R.string.order_successfully_done, Toast.LENGTH_SHORT).show();
-
-                    databaseAccess.open();
-                    databaseAccess.emptyCart();
-                    dialogSuccess(obj);
-                    Global.vorderList=null;
-
-                } else {
-
-                    Toasty.error(ProductCart.this, R.string.error, Toast.LENGTH_SHORT).show();
-
-                    progressDialog.dismiss();
-                    Log.d("error", response.toString());
-
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-
-                Log.d("onFailure", t.toString());
-
-            }
-        });
-
-
     }
 
     public void postData(final JSONObject obj){
@@ -956,8 +895,9 @@ public class ProductCart extends BaseActivity {
 
     private void showPin() {
 
-         dialogpin = new Dialog(this);
+        dialogpin = new Dialog(this);
         dialogpin.setContentView(R.layout.dialog_pin);
+        TextView clearpin = dialogpin.findViewById(R.id.clearpin);
         mEt1 = dialogpin.findViewById(R.id.otp_edit_text1);
         mEt2 = dialogpin.findViewById(R.id.otp_edit_text2);
         mEt3 = dialogpin.findViewById(R.id.otp_edit_text3);
@@ -972,7 +912,8 @@ public class ProductCart extends BaseActivity {
         addTextWatcher(mEt6);
         //Mengeset judul dialog
         dialogpin.setTitle("Masukkan PIN");
-
+        mEt1.requestFocus();
+        dialogpin.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         //Mengeset layout
 
 
@@ -1014,12 +955,20 @@ public class ProductCart extends BaseActivity {
             }
         });
 
-//        cancelButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//            }
-//        });
+        clearpin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEt1.setText("");
+                mEt2.setText("");
+                mEt3.setText("");
+                mEt4.setText("");
+                mEt5.setText("");
+                mEt6.setText("");
+                mEt1.requestFocus();
+
+
+            }
+        });
 
         //Menampilkan custom dialog
         dialogpin.show();
