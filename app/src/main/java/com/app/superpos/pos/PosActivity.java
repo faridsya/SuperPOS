@@ -1,9 +1,16 @@
 package com.app.superpos.pos;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +41,7 @@ import com.app.superpos.networking.ApiInterface;
 import com.app.superpos.utils.BaseActivity;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
@@ -47,14 +57,15 @@ public class PosActivity extends BaseActivity {
     TextView txtNoProducts, txtReset;
     ProductCategoryAdapter categoryAdapter;
 
-    ImageView imgNoProduct, imgScanner, imgCart, imgBack,imgempty;
+    ImageView imgNoProduct, imgScanner, imgCart, imgBack,imgempty,speak,speakno;
     ;
     public static EditText etxtSearch;
     public static TextView txtCount;
-
+    private SpeechRecognizer speechRecognizer;
     private ShimmerFrameLayout mShimmerViewContainer;
     DatabaseAccess databaseAccess;
-
+    private Boolean isListening = false;
+    private int RecordAudioRequestCode = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,10 +76,16 @@ public class PosActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//for back button
         getSupportActionBar().setTitle(R.string.all_product);
         getSupportActionBar().hide();
-
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECORD_AUDIO},RecordAudioRequestCode);
+            }
+        }
         etxtSearch = findViewById(R.id.etxt_search);
         recyclerView = findViewById(R.id.recycler);
         imgNoProduct = findViewById(R.id.image_no_product);
+        speak = findViewById(R.id.speak);
+        speakno = findViewById(R.id.speakno);
         txtNoProducts = findViewById(R.id.txt_no_products);
         imgScanner = findViewById(R.id.img_scanner);
         categoryRecyclerView = findViewById(R.id.category_recyclerview);
@@ -161,7 +178,64 @@ public class PosActivity extends BaseActivity {
             txtCount.setText(String.valueOf(count));
         }
 
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
 
+        final Intent speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "id");
+
+        speechRecognizer.setRecognitionListener(new RecognitionListener() {
+            @Override
+            public void onReadyForSpeech(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+                MuteAudio();
+                //txtRecognizedSpeech.setHint("Listening...");
+            }
+
+            @Override
+            public void onRmsChanged(float v) {
+
+            }
+
+            @Override
+            public void onBufferReceived(byte[] bytes) {
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+                Log.d("onEndOfSpeech","");
+            }
+
+            @Override
+            public void onError(int i) {
+                //UnMuteAudio();;
+                Log.d("onError","");
+                speechRecognizer.startListening(speechRecognizerIntent);
+            }
+
+            @Override
+            public void onResults(Bundle bundle) {
+
+                ArrayList<String> speechData = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+               // txtRecognizedSpeech.setText(speechData.get(0));
+                etxtSearch.setText(speechData.get(0));
+                speechRecognizer.startListening(speechRecognizerIntent);
+            }
+
+            @Override
+            public void onPartialResults(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onEvent(int i, Bundle bundle) {
+
+            }
+        });
         imgCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,6 +259,28 @@ public class PosActivity extends BaseActivity {
             public void onClick(View v) {
 
                 finish();
+            }
+        });
+
+        speak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speechRecognizer.startListening(speechRecognizerIntent);
+                speak.setVisibility(View.GONE);
+                speakno.setVisibility(View.VISIBLE);
+                isListening = true;
+
+            }
+        });
+
+        speakno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speechRecognizer.stopListening();
+                speakno.setVisibility(View.GONE);
+                speak.setVisibility(View.VISIBLE);
+                isListening = false;
+
             }
         });
 
@@ -247,7 +343,39 @@ public class PosActivity extends BaseActivity {
 
 
     }
+    public void MuteAudio(){
+        AudioManager mAlramMAnager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
+            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_ALARM, AudioManager.ADJUST_MUTE, 0);
+            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, 0);
+            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, 0);
+            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, 0);
+        } else {
+            mAlramMAnager.setStreamMute(AudioManager.STREAM_NOTIFICATION, true);
+            mAlramMAnager.setStreamMute(AudioManager.STREAM_ALARM, true);
+            mAlramMAnager.setStreamMute(AudioManager.STREAM_MUSIC, true);
+            mAlramMAnager.setStreamMute(AudioManager.STREAM_RING, true);
+            mAlramMAnager.setStreamMute(AudioManager.STREAM_SYSTEM, true);
+        }
+    }
 
+    public void UnMuteAudio(){
+        AudioManager mAlramMAnager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, 0);
+            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_ALARM, AudioManager.ADJUST_UNMUTE, 0);
+            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE,0);
+            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, 0);
+            mAlramMAnager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, 0);
+        } else {
+            mAlramMAnager.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
+            mAlramMAnager.setStreamMute(AudioManager.STREAM_ALARM, false);
+            mAlramMAnager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+            mAlramMAnager.setStreamMute(AudioManager.STREAM_RING, false);
+            mAlramMAnager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
+        }
+    }
 
     public void getProductsData(String searchText, String shopId, String ownerId) {
 
@@ -322,4 +450,12 @@ public class PosActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //we need to destroy the speechRecogniser on Destroy,
+        //if we do not do it it will stay on and drain the battery
+        speechRecognizer.destroy();
+        UnMuteAudio();
+    }
 }
