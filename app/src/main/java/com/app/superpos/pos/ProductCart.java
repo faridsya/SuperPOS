@@ -112,7 +112,7 @@ public class ProductCart extends BaseActivity {
     EditText mEt1, mEt2, mEt3, mEt4, mEt5, mEt6;
     Button saveButton;
     String pinkartu = "";
-    boolean showpin=false;
+    boolean vshowpin=false;
      AlertDialog alertDialogorder;
     Dialog dialogpin;
     List<HashMap<String, String>> lines;
@@ -139,7 +139,7 @@ public class ProductCart extends BaseActivity {
         sp = getSharedPreferences(Constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
         servedBy = sp.getString(Constant.SP_STAFF_NAME, "");
-        showpin = sp.getBoolean(Constant.SP_SHOWPIN, false);
+        vshowpin = sp.getBoolean(Constant.SP_SHOWPIN, false);
         staffId = sp.getString(Constant.SP_STAFF_ID, "");
         shopTax= sp.getString(Constant.SP_TAX, "");
         currency= sp.getString(Constant.SP_CURRENCY_SYMBOL, "");
@@ -282,7 +282,8 @@ public class ProductCart extends BaseActivity {
                 try {
                     text = new String(payload, lng + 1, payload.length - lng - 1, textencoding);
                     cardId=text;
-                   // Toasty.error(ProductCart.this, text, Toast.LENGTH_SHORT).show();
+                    Log.d("kartuna",cardId);
+                    //Toasty.error(ProductCart.this, text, Toast.LENGTH_SHORT).show();
                     final TextView dialogOrderPaymentMethod = dialogView.findViewById(R.id.dialog_order_status);
                     final TextView dialogOrderType = dialogView.findViewById(R.id.dialog_order_type);
                     final TextView dialogCustomer = dialogView.findViewById(R.id.dialog_customer);
@@ -302,6 +303,8 @@ public class ProductCart extends BaseActivity {
                     // String tax = shopTax;
 
                     double getTax = totalTax;
+                    if(vshowpin) showPin();
+                    else
                     proceedOrder(orderType1, orderPaymentMethod, customerName, getTax, discount1, calculatedTotalCost);
                     alertDialogorder.dismiss();
 
@@ -873,7 +876,7 @@ public class ProductCart extends BaseActivity {
             if (discount1.isEmpty()) {
                 discount1 = "0.00";
             }
-            if(showpin)   showPin();
+            if(vshowpin)   showPin();
             else
             proceedOrder(orderType1, orderPaymentMethod, customerName, getTax, discount1, calculatedTotalCost);
 
