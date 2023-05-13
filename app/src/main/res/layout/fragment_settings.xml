@@ -61,7 +61,7 @@
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
                                     android:layout_marginTop="25dp"
-                                    android:src="@drawable/super_pos_logo" />
+                                    android:src="@drawable/saepos_logo" />
 
                                 <TextView
                                     android:layout_width="wrap_content"

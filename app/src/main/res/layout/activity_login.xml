@@ -50,7 +50,7 @@
                         <ImageView
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            app:srcCompat="@drawable/super_pos_logo" />
+                            app:srcCompat="@drawable/saepos_logo" />
 
                         <TextView
                             android:layout_width="match_parent"

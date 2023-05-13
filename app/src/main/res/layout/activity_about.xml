@@ -43,7 +43,7 @@
                 android:fontFamily="@font/sailec_regular"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="ShopN'Cart is a Smart Solution for your any shop. Manage your daily sales smartly by using ShopN'Cart Online POS"
+                android:text="SaePOS is a Smart Solution for your any shop. Manage your daily sales smartly by using SaePOS Online POS"
                 android:textColor="@color/transparent_black" />
 
             <TextView
