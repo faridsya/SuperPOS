@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +60,7 @@ public class PosActivity extends BaseActivity {
     ProductCategoryAdapter categoryAdapter;
 
     ImageView imgNoProduct, imgScanner, imgCart, imgBack,imgempty,speak,speakno;
+    RelativeLayout rspeakno,rspeak;
     ;
     public static EditText etxtSearch;
     public static TextView txtCount;
@@ -66,6 +69,8 @@ public class PosActivity extends BaseActivity {
     DatabaseAccess databaseAccess;
     private Boolean isListening = false;
     private int RecordAudioRequestCode = 1;
+    List<Product> productsList;
+    MediaPlayer player;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,11 +86,14 @@ public class PosActivity extends BaseActivity {
                 ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECORD_AUDIO},RecordAudioRequestCode);
             }
         }
+        player = MediaPlayer.create(this, R.raw.delete_sound);
         etxtSearch = findViewById(R.id.etxt_search);
         recyclerView = findViewById(R.id.recycler);
         imgNoProduct = findViewById(R.id.image_no_product);
         speak = findViewById(R.id.speak);
         speakno = findViewById(R.id.speakno);
+        rspeak = findViewById(R.id.rspeak);
+        rspeakno = findViewById(R.id.rspeakno);
         txtNoProducts = findViewById(R.id.txt_no_products);
         imgScanner = findViewById(R.id.img_scanner);
         categoryRecyclerView = findViewById(R.id.category_recyclerview);
@@ -182,7 +190,7 @@ public class PosActivity extends BaseActivity {
 
         final Intent speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "id");
-
+        //MuteAudio();
         speechRecognizer.setRecognitionListener(new RecognitionListener() {
             @Override
             public void onReadyForSpeech(Bundle bundle) {
@@ -191,8 +199,8 @@ public class PosActivity extends BaseActivity {
 
             @Override
             public void onBeginningOfSpeech() {
-                MuteAudio();
-                //txtRecognizedSpeech.setHint("Listening...");
+                //MuteAudio();
+                etxtSearch.setHint("Ucapkan nama barang...");
             }
 
             @Override
@@ -222,7 +230,8 @@ public class PosActivity extends BaseActivity {
 
                 ArrayList<String> speechData = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                // txtRecognizedSpeech.setText(speechData.get(0));
-                etxtSearch.setText(speechData.get(0));
+
+                prosesdengar(speechData.get(0));
                 speechRecognizer.startListening(speechRecognizerIntent);
             }
 
@@ -266,8 +275,8 @@ public class PosActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 speechRecognizer.startListening(speechRecognizerIntent);
-                speak.setVisibility(View.GONE);
-                speakno.setVisibility(View.VISIBLE);
+                rspeak.setVisibility(View.GONE);
+                rspeakno.setVisibility(View.VISIBLE);
                 isListening = true;
 
             }
@@ -277,14 +286,109 @@ public class PosActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 speechRecognizer.stopListening();
-                speakno.setVisibility(View.GONE);
-                speak.setVisibility(View.VISIBLE);
+                rspeakno.setVisibility(View.GONE);
+                rspeak.setVisibility(View.VISIBLE);
                 isListening = false;
 
             }
         });
 
 
+    }
+
+    private void prosesdengar(String hasil){
+
+        Product produk;
+        switch (hasil){
+            case "keranjang":
+                if(!productsList.isEmpty()){
+                    produk=productsList.get(0);
+                    masukkeranjang(produk);
+
+                }
+
+                break;
+            case "proses":
+                Intent intent = new Intent(PosActivity.this, ProductCart.class);
+                startActivity(intent);
+                break;
+            case "semua":
+                etxtSearch.setText("");
+                break;
+            case "hapus":
+                databaseAccess.open();
+                databaseAccess.emptyCart();
+                txtCount.setVisibility(View.INVISIBLE);
+                break;
+            default: etxtSearch.setText(hasil);
+        }
+    }
+
+    private void masukkeranjang(Product product){
+        databaseAccess.open();
+        int getQty=databaseAccess.getqty(product.getProductId());
+        int getStock=Integer.parseInt(product.getProductStock());
+        String productId = product.getProductId();
+        String productName = product.getProductName();
+        String productWeight = product.getProductWeight();
+        String productPrice = product.getProductSellPrice();
+        String productPriceBefore = product.getProductSellBefore();
+        String weightUnit = product.getProductWeightUnit();
+        String productImage = product.getProductImage();
+        String productStock = product.getProductStock();
+
+        String tax = product.getTax();
+
+        String imageUrl= Constant.PRODUCT_IMAGE_URL+productImage;
+        double itemPrice=Double.parseDouble(productPrice);
+        double getTax=Double.parseDouble(tax);
+
+
+
+        double taxAmount=(itemPrice*getTax)/100;
+        if (getStock<=0 || getStock<=getQty )
+        {
+
+            Toasty.warning(this, R.string.stock_not_available_please_update_stock, Toast.LENGTH_SHORT).show();
+        }
+
+        else {
+
+            databaseAccess.open();
+
+            int check = databaseAccess.addToCart(productId,productName, productWeight, weightUnit, productPrice, 1,productImage,productStock,taxAmount,productPriceBefore);
+
+            databaseAccess.open();
+            int count=databaseAccess.getCartItemCount();
+            if (count==0)
+            {
+                PosActivity.txtCount.setVisibility(View.INVISIBLE);
+            }
+            else
+            {
+                PosActivity. txtCount.setVisibility(View.VISIBLE);
+                PosActivity.txtCount.setText(String.valueOf(count));
+            }
+
+            if (check == 1) {
+                Toasty.success(this, R.string.product_added_to_cart, Toast.LENGTH_SHORT).show();
+                player.start();
+            } else if (check == 2) {
+                databaseAccess.open();
+                int jumlah=databaseAccess.getqty(productId);
+                jumlah++;
+
+                databaseAccess.updateQty(productId, String.valueOf(jumlah));
+                player.start();
+                Toasty.success(this, R.string.product_added_to_cart, Toast.LENGTH_SHORT).show();
+                //Toasty.info(context, R.string.product_already_added_to_cart, Toast.LENGTH_SHORT).show();
+
+            } else {
+
+                Toasty.error(this, R.string.product_added_to_cart_failed_try_again, Toast.LENGTH_SHORT).show();
+
+            }
+        }
     }
 
 
@@ -389,7 +493,7 @@ public class PosActivity extends BaseActivity {
 
 
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Product> productsList;
+
                     productsList = response.body();
 
 
@@ -414,6 +518,7 @@ public class PosActivity extends BaseActivity {
                         recyclerView.setVisibility(View.VISIBLE);
                         imgNoProduct.setVisibility(View.GONE);
                         productAdapter = new PosProductAdapter(PosActivity.this, productsList);
+
 
                         recyclerView.setAdapter(productAdapter);
 
@@ -456,6 +561,6 @@ public class PosActivity extends BaseActivity {
         //we need to destroy the speechRecogniser on Destroy,
         //if we do not do it it will stay on and drain the battery
         speechRecognizer.destroy();
-        UnMuteAudio();
+        //UnMuteAudio();
     }
 }

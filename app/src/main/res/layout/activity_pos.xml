@@ -48,9 +48,10 @@
             android:gravity="center|right"
             android:orientation="horizontal">
             <RelativeLayout
+                android:id="@+id/rspeak"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:paddingRight="20dp"
                 android:layout_gravity="center|right"
                 android:layout_marginTop="2dp"
 
@@ -70,12 +71,13 @@
 
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/rspeakno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="20dp"
                 android:layout_gravity="center|right"
                 android:layout_marginTop="2dp"
-
+                android:visibility="gone"
                 android:gravity="center">
 
 
@@ -84,8 +86,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:foregroundGravity="center"
-                    android:paddingRight="20dp"
-                    android:visibility="gone"
+
+
                     android:tint="@android:color/white"
                     android:src="@drawable/mute" />
 
